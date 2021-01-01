@@ -2,15 +2,82 @@ package com.honoursapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 
 import com.honoursapp.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class OrderActivity extends AppCompatActivity {
+
+    //Buttons
+    Button btnBurgerBar, btnProceed, btnBasket;
+
+    //List View
+    ListView lvCategories;
+
+    //Array list for categories with all the sections added by default (certain ones are removed for different methods
+    ArrayList<String> categories = new ArrayList<>(Arrays.asList("Drinks","Starters","Curries","Tandoori","Specials","Vegetable Sides","Rice","Naan and Breads","Desserts"));
+
+    //Array lists for all the food items in each category (will retrieve from db later below).
+    ArrayList<String> drinksList = new ArrayList<>();
+    ArrayList<String> startersList = new ArrayList<>();
+    ArrayList<String> curriesList = new ArrayList<>();
+    ArrayList<String> tandooriList = new ArrayList<>();
+    ArrayList<String> specialsList = new ArrayList<>();
+    ArrayList<String> vegSidesList = new ArrayList<>();
+    ArrayList<String> riceList = new ArrayList<>();
+    ArrayList<String> breadsList = new ArrayList<>();
+    ArrayList<String> dessertsList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
+        //Buttons
+        btnBurgerBar = (Button) findViewById(R.id.btnBurgerBar);
+        btnProceed = (Button) findViewById(R.id.btnProceed);
+        btnBasket = (Button) findViewById(R.id.btnBasket);
+
+        //List view
+        lvCategories = (ListView) findViewById(R.id.lvCategories);
+
+        //Get the extras which have been passed
+        Bundle extras = getIntent().getExtras();
+
+        if(extras != null){
+            int choice = extras.getInt("method");
+            //Can only be 0 or 1. 0 is to table, 1 is for collection
+            //Different information will be displayed depending on the selection.
+            if(choice == 1){
+                //Order for collection options. Remove 'desserts' (currently index 8)
+                categories.remove(8);
+            }
+        }
+
+        //Show a list view for all of the items in categories
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, categories);
+        lvCategories.setAdapter(adapter);
+
+        //Onclick for the items of list view
+        lvCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Start the browse items activity and pass the category which has been selected
+                Intent i = new Intent(view.getContext(), BrowseItemsActivity.class);
+                i.putExtra("category", categories.get(position));
+                startActivity(i);
+            }
+        });
+
     }
 }

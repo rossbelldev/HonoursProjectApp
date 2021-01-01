@@ -1,6 +1,11 @@
 <resources>
+    <!-- activity_main -->
     <string name="app_name">HonoursApp</string>
     <string name="orderToTable">Order to Table</string>
     <string name="orderForCollection">Order for Collection</string>
     <string name="bookTable">Book Table</string>
+
+    <!-- activity_order -->
+    <string name="checkout">Proceed to Checkout</string>
+
 </resources>
