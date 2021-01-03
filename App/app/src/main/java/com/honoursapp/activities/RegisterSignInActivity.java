@@ -40,6 +40,20 @@ public class RegisterSignInActivity extends AppCompatActivity {
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
 
+        etEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etEmail.setText("");
+            }
+        });
+
+        etPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etPassword.setText("");
+            }
+        });
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

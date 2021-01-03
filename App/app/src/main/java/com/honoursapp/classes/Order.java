@@ -6,6 +6,11 @@ public class Order {
 
     ArrayList<Item> orderItems;
 
+    //Default Constructor
+    public Order(){
+
+    }
+
     //getters and setters
     public ArrayList<Item> getOrderItems(){
         return orderItems;

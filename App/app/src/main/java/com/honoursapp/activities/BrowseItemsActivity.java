@@ -1,14 +1,21 @@
 package com.honoursapp.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.honoursapp.R;
+import com.honoursapp.classes.ItemDB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +32,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
     String category;
 
     //Array list for the list of items to be displayed
-    ArrayList<String> toDisplay;
+    ArrayList<String> toDisplay = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,23 +54,102 @@ public class BrowseItemsActivity extends AppCompatActivity {
         //List view
         lvItems = (ListView) findViewById(R.id.lvItems);
 
+        //Adapter
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, toDisplay);
+        lvItems.setAdapter(adapter);
+
         //Check to see if sub categories are needed
         if(category.equals("Drinks")){
             //Sub category will be the list provided (not the search)
-            toDisplay = new ArrayList<>(Arrays.asList("Soft Drinks","Hot Drinks","Beer","Wine","Cider","Vodka","Rum","Whisky","Gin","Alcohol Free","Other"));
+            String[] cats = {"Soft Drinks","Hot Drinks","Beer","Wine","Cider","Vodka","Rum","Whisky","Gin","Alcohol Free","Other"};
+            toDisplay.addAll(Arrays.asList(cats));
         }else{
             //Else the fetch will execute
+            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("1OcAx3H04_kHY_cgU-Z8pAyuTEDuVNCit5Z9ohFt2L-4").child(category);
 
-            //Get the items from the categories (this is just hard coded at the moment)
-            toDisplay = new ArrayList<>(Arrays.asList("Opt 1","Opt 2","Opt 3","Opt 4","Opt 5","Opt 6", "Opt 7","Opt 8","Opt 9",
-                    "Opt 10","Opt 11","Opt 12","Opt 13"));
+            final ArrayList<ItemDB> list = new ArrayList<>();
+
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    for(DataSnapshot ds : dataSnapshot.getChildren()){
+                        ItemDB itmDb = ds.getValue(ItemDB.class);
+                        System.out.println(itmDb.getName());
+                        list.add(itmDb);
+                        toDisplay.add(itmDb.getName());
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(getApplicationContext(), "Problem: " + databaseError, Toast.LENGTH_LONG).show();
+                }
+
+            });
+
+
         }
 
         //Change what the user sees depending on what they clicked
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, toDisplay);
-        lvItems.setAdapter(adapter);
+
 
         //Onclick for the items
 
     }
+
 }
+
+//Old Code
+/*
+                    if(ds.getValue().equals(cat)){
+
+
+
+
+                        //To be used if needed
+                        ArrayList<String> proteins = new ArrayList<>();
+                        ArrayList<Double> prices = new ArrayList<>();
+
+                        String name = ds.child("Name").toString();
+                        String price = ds.child("Price").toString();
+                        String protein = ds.child("Proteins").toString();
+                        String allergens = ds.child("Allergens").toString();
+                        String description = ds.child("Description").toString();
+
+                        //If there are multiple, convert the Strings to doubles for price
+                        if(price.contains(",")){
+
+                            String[] pricesArray = price.split(",");
+                            ArrayList<Double> pri = new ArrayList<>();
+
+                            for(String p : pricesArray){
+                                double d = Double.parseDouble(p);
+                                pri.add(d);
+                            }
+
+                            itm.setPrices(pri);
+
+                            ArrayList<String> pro = new ArrayList<>(Arrays.asList(protein.split(",")));
+                            itm.setProteins(pro);
+
+                        }else{
+                            //Only one protein
+                            double p = Double.parseDouble(price);
+                            prices.add(p);
+
+                            proteins.add(protein);
+
+                            itm.setProteins(proteins);
+                            itm.setPrices(prices);
+                        }
+
+                        itm.setName(name);
+                        itm.setAllergens(allergens);
+                        itm.setDescription(description);
+
+
+
+                    }
+                    */

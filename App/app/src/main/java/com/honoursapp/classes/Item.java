@@ -1,11 +1,19 @@
 package com.honoursapp.classes;
 
+import java.util.ArrayList;
+
 public class Item {
 
     String name;
-    String protein;
+    ArrayList<String> proteins;
     String allergens;
-    double price;
+    ArrayList<Double> prices;
+    String description;
+
+    //Default constructor
+    public Item(){
+
+    }
 
     //Getters and setters
     public String getName(){
@@ -16,12 +24,12 @@ public class Item {
         this.name = name;
     }
 
-    public String getProtein(){
-        return name;
+    public ArrayList<String> getProteins() {
+        return proteins;
     }
 
-    public void setProtein(String protein){
-        this.protein = protein;
+    public void setProteins(ArrayList<String> proteins) {
+        this.proteins = proteins;
     }
 
     public String getAllergens(){
@@ -32,12 +40,19 @@ public class Item {
         this.allergens = allergens;
     }
 
-    public double getPrice(){
-        return price;
+    public ArrayList<Double> getPrices() {
+        return prices;
     }
 
-    public void setPrice(double price){
-        this.price = price;
+    public void setPrices(ArrayList<Double> prices) {
+        this.prices = prices;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
