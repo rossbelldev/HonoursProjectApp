@@ -26,18 +26,6 @@ public class OrderActivity extends AppCompatActivity {
     //Array list for categories with all the sections added by default (certain ones are removed for different methods
     ArrayList<String> categories = new ArrayList<>(Arrays.asList("Drinks","Starters","Curries","Tandoori","Specials","Vegetable Sides","Rice","Naan and Breads","Desserts"));
 
-    //Array lists for all the food items in each category (will retrieve from db later below).
-    ArrayList<String> drinksList = new ArrayList<>();
-    ArrayList<String> startersList = new ArrayList<>();
-    ArrayList<String> curriesList = new ArrayList<>();
-    ArrayList<String> tandooriList = new ArrayList<>();
-    ArrayList<String> specialsList = new ArrayList<>();
-    ArrayList<String> vegSidesList = new ArrayList<>();
-    ArrayList<String> riceList = new ArrayList<>();
-    ArrayList<String> breadsList = new ArrayList<>();
-    ArrayList<String> dessertsList = new ArrayList<>();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

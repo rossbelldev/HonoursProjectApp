@@ -2,7 +2,7 @@ package com.honoursapp.classes;
 
 import java.util.ArrayList;
 
-class Order {
+public class Order {
 
     ArrayList<Item> orderItems;
 

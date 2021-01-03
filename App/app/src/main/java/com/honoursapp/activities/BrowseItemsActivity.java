@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseReference;
 import com.honoursapp.R;
 
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
             toDisplay = new ArrayList<>(Arrays.asList("Soft Drinks","Hot Drinks","Beer","Wine","Cider","Vodka","Rum","Whisky","Gin","Alcohol Free","Other"));
         }else{
             //Else the fetch will execute
+
             //Get the items from the categories (this is just hard coded at the moment)
             toDisplay = new ArrayList<>(Arrays.asList("Opt 1","Opt 2","Opt 3","Opt 4","Opt 5","Opt 6", "Opt 7","Opt 8","Opt 9",
                     "Opt 10","Opt 11","Opt 12","Opt 13"));

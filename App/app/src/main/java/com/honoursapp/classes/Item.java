@@ -1,6 +1,6 @@
 package com.honoursapp.classes;
 
-class Item {
+public class Item {
 
     String name;
     String protein;

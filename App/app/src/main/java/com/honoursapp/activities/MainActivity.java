@@ -58,7 +58,9 @@ public class MainActivity extends AppCompatActivity {
         btnBurger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Display the burger bar menu
+                //Display the burger bar menu (currently lets people sign in etc)
+                Intent i = new Intent(v.getContext(), RegisterSignInActivity.class);
+                startActivity(i);
             }
         });
 

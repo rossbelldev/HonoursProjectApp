@@ -8,4 +8,11 @@
     <!-- activity_order -->
     <string name="checkout">Proceed to Checkout</string>
 
+    <!-- activity_register_sign_in -->
+    <string name="reg">Register</string>
+    <string name="sign">Sign In</string>
+    <string name="name">Name</string>
+    <string name="email">Email Address</string>
+    <string name="Password">Password</string>
+
 </resources>
