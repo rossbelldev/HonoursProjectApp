@@ -15,4 +15,11 @@
     <string name="email">Email Address</string>
     <string name="Password">Password</string>
 
+    <!-- activity_view_item_template -->
+    <string name="desc">Description:</string>
+    <string name="allergens">Allergens:</string>
+    <string name="protein">Protein Choice:</string>
+    <string name="add">Add to Order</string>
+    <string name="qty">Quantity:</string>
+
 </resources>

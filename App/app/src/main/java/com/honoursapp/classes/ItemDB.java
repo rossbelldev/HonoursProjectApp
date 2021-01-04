@@ -1,6 +1,8 @@
 package com.honoursapp.classes;
 
-public class ItemDB {
+import java.io.Serializable;
+
+public class ItemDB implements Serializable {
 
     String name;
     String proteins;

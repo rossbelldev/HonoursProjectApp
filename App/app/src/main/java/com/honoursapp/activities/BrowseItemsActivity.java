@@ -80,7 +80,6 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
                         ItemDB itmDb = ds.getValue(ItemDB.class);
-                        System.out.println(itmDb.getName());
                         list.add(itmDb);
                         toDisplay.add(itmDb.getName());
                     }
@@ -95,7 +94,6 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
             });
 
-
         }
 
         //Onclick for the items
@@ -103,7 +101,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(view.getContext(), ViewItemTemplate.class);
-                intent.putExtra("itemDb", (Parcelable) list.get(i));
+                intent.putExtra("itemDb", list.get(i));
                 startActivity(intent);
             }
         });
