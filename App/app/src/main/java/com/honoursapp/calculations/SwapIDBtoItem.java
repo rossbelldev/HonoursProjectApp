@@ -23,6 +23,9 @@ public class SwapIDBtoItem {
             String[] proteins = itemDB.getProteins().split(",");
             ArrayList<String> proteinsList = new ArrayList<>(Arrays.asList(proteins));
             i.setProteins(proteinsList);
+        }else{
+            ArrayList<String> proteins = new ArrayList<>();
+            i.setProteins(proteins);
         }
 
         //Split the prices into an array
