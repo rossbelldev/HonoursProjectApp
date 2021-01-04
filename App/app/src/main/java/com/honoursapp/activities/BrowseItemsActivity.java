@@ -3,7 +3,11 @@ package com.honoursapp.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -33,6 +37,9 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
     //Array list for the list of items to be displayed
     ArrayList<String> toDisplay = new ArrayList<>();
+
+    ArrayList<ItemDB> list = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +74,6 @@ public class BrowseItemsActivity extends AppCompatActivity {
             //Else the fetch will execute
             DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("1OcAx3H04_kHY_cgU-Z8pAyuTEDuVNCit5Z9ohFt2L-4").child(category);
 
-            final ArrayList<ItemDB> list = new ArrayList<>();
-
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -79,6 +84,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
                         list.add(itmDb);
                         toDisplay.add(itmDb.getName());
                     }
+                    //Change what the user sees depending on what they clicked
                     adapter.notifyDataSetChanged();
                 }
 
@@ -92,64 +98,16 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
         }
 
-        //Change what the user sees depending on what they clicked
-
-
         //Onclick for the items
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(view.getContext(), ViewItemTemplate.class);
+                intent.putExtra("itemDb", (Parcelable) list.get(i));
+                startActivity(intent);
+            }
+        });
 
     }
 
 }
-
-//Old Code
-/*
-                    if(ds.getValue().equals(cat)){
-
-
-
-
-                        //To be used if needed
-                        ArrayList<String> proteins = new ArrayList<>();
-                        ArrayList<Double> prices = new ArrayList<>();
-
-                        String name = ds.child("Name").toString();
-                        String price = ds.child("Price").toString();
-                        String protein = ds.child("Proteins").toString();
-                        String allergens = ds.child("Allergens").toString();
-                        String description = ds.child("Description").toString();
-
-                        //If there are multiple, convert the Strings to doubles for price
-                        if(price.contains(",")){
-
-                            String[] pricesArray = price.split(",");
-                            ArrayList<Double> pri = new ArrayList<>();
-
-                            for(String p : pricesArray){
-                                double d = Double.parseDouble(p);
-                                pri.add(d);
-                            }
-
-                            itm.setPrices(pri);
-
-                            ArrayList<String> pro = new ArrayList<>(Arrays.asList(protein.split(",")));
-                            itm.setProteins(pro);
-
-                        }else{
-                            //Only one protein
-                            double p = Double.parseDouble(price);
-                            prices.add(p);
-
-                            proteins.add(protein);
-
-                            itm.setProteins(proteins);
-                            itm.setPrices(prices);
-                        }
-
-                        itm.setName(name);
-                        itm.setAllergens(allergens);
-                        itm.setDescription(description);
-
-
-
-                    }
-                    */

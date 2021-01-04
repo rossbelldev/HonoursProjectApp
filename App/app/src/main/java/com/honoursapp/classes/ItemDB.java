@@ -5,7 +5,7 @@ public class ItemDB {
     String name;
     String proteins;
     String description;
-    double price;
+    String price;
     String allergens;
 
     public ItemDB(){}
@@ -37,11 +37,11 @@ public class ItemDB {
         this.description = description;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
