@@ -29,23 +29,23 @@ public class SwapIDBtoItem {
         }
 
         //Split the prices into an array
-        String[] pricesString = itemDB.getPrice().split(",");
+        String priceString = itemDB.getPrice().replaceAll("\\s+","");
+        String[] pricesString = priceString.split(",");
         //Make the array list of type double to be filled
         ArrayList<Double> pricesList = new ArrayList<>();
 
-        if(pricesString.length == 2){
 
+        if(pricesString.length == 1){
             double p = Double.parseDouble(pricesString[0]);
             pricesList.add(p);
-
         }else{
-
             for(int ii = 0; ii < pricesString.length; ii++){
                 //Convert the array and add the elements to the double array list
                 double p = Double.parseDouble(pricesString[ii]);
                 pricesList.add(p);
             }
         }
+        i.setPrices(pricesList);
 
         //Return the swapped class
         return i;

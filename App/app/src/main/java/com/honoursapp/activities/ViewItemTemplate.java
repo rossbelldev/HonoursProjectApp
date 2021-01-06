@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.honoursapp.R;
 import com.honoursapp.calculations.SwapIDBtoItem;
+import com.honoursapp.classes.CustomArrayAdapter;
 import com.honoursapp.classes.Item;
 import com.honoursapp.classes.ItemDB;
 
@@ -27,6 +29,9 @@ public class ViewItemTemplate extends AppCompatActivity {
     //Text Views
     TextView tvTitle, tvDesc, tvAllergens, tvProteins;
 
+    //TextView (to be accessed from custom list view elements)
+    TextView tvPrice, tvAllergensAdded;
+
     //List View
     ListView lvProteins;
 
@@ -35,7 +40,7 @@ public class ViewItemTemplate extends AppCompatActivity {
 
     //Array list proteins
     ArrayList<String> proteins = new ArrayList<>();
-
+    ArrayList<String> pricesString = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +78,19 @@ public class ViewItemTemplate extends AppCompatActivity {
         tvAllergens.setText(item.getAllergens());
 
         proteins = item.getProteins();
-        if(proteins.size() > 1){
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, proteins);
-            lvProteins.setAdapter(adapter);
-        }else{
-            tvProteins.setVisibility(View.GONE);
+
+        for(int i = 0; i < item.getPrices().size(); i++){
+            String s = item.getPrices().get(i).toString();
+            pricesString.add(s);
         }
 
 
+        if(proteins != null){
+            CustomArrayAdapter custAd = new CustomArrayAdapter(this, item.getProteins(), pricesString);
+            lvProteins.setAdapter(custAd);
+        }else{
+            tvProteins.setVisibility(View.GONE);
+        }
 
     }
 }
