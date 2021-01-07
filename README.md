@@ -1,4 +1,4 @@
-# HonoursProjectApp
+# Honours Project App
 This is my repository for my honours project app.
 
 This app is an Android food ordering app which wil allow customers to order food to their tables and for collection. 
