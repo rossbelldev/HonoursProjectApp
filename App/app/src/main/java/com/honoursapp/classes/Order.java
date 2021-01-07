@@ -1,10 +1,13 @@
 package com.honoursapp.classes;
 
+import com.honoursapp.classes.items.ItemOrder;
+
 import java.util.ArrayList;
 
 public class Order {
 
-    ArrayList<Item> orderItems;
+    ArrayList<ItemOrder> orderItems;
+    public User user;
 
     //Default Constructor
     public Order(){
@@ -12,12 +15,19 @@ public class Order {
     }
 
     //getters and setters
-    public ArrayList<Item> getOrderItems(){
+    public ArrayList<ItemOrder> getOrderItems(){
         return orderItems;
     }
 
-    public void setOrderItems(ArrayList<Item> orderItems){
+    public void setOrderItems(ArrayList<ItemOrder> orderItems){
         this.orderItems = orderItems;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
