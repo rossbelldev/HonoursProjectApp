@@ -1,7 +1,7 @@
 package com.honoursapp.calculations;
 
-import com.honoursapp.classes.Item;
-import com.honoursapp.classes.ItemDB;
+import com.honoursapp.classes.items.Item;
+import com.honoursapp.classes.items.ItemDB;
 
 import java.util.ArrayList;
 import java.util.Arrays;

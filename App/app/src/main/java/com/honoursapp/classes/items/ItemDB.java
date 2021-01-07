@@ -1,4 +1,4 @@
-package com.honoursapp.classes;
+package com.honoursapp.classes.items;
 
 import java.io.Serializable;
 

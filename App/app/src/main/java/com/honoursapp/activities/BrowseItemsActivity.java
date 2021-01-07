@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,7 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.honoursapp.R;
-import com.honoursapp.classes.ItemDB;
+import com.honoursapp.classes.Order;
+import com.honoursapp.classes.items.ItemDB;
+import com.honoursapp.classes.items.ItemOrder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,8 +38,10 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
     //Array list for the list of items to be displayed
     ArrayList<String> toDisplay = new ArrayList<>();
-
     ArrayList<ItemDB> list = new ArrayList<>();
+
+    //Order to be passed between activities
+    ArrayList<ItemOrder> order = new ArrayList<>();
 
 
     @Override
@@ -51,6 +54,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
         if(extras != null){
             category = extras.getString("category");
+            order = (ArrayList<ItemOrder>) extras.get("order");
         }
 
         //Buttons
@@ -102,6 +106,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(view.getContext(), ViewItemTemplate.class);
                 intent.putExtra("itemDb", list.get(i));
+                intent.putExtra("order", order);
                 startActivity(intent);
             }
         });

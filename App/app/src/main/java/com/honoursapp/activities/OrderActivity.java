@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.honoursapp.R;
+import com.honoursapp.classes.Order;
+import com.honoursapp.classes.items.ItemOrder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +28,9 @@ public class OrderActivity extends AppCompatActivity {
 
     //Array list for categories with all the sections added by default (certain ones are removed for different methods
     ArrayList<String> categories = new ArrayList<>(Arrays.asList("Drinks","Starters","Curries","Tandoori","Specials","Vegetable Sides","Rice","Naan and Breads","Desserts"));
+
+    //Initialise the order to be passed between
+    ArrayList<ItemOrder> order = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +69,7 @@ public class OrderActivity extends AppCompatActivity {
                 //Start the browse items activity and pass the category which has been selected
                 Intent i = new Intent(view.getContext(), BrowseItemsActivity.class);
                 i.putExtra("category", categories.get(position));
+                i.putExtra("order", order);
                 startActivity(i);
             }
         });
