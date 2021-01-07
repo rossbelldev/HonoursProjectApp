@@ -47,6 +47,9 @@ public class ViewItemTemplate extends AppCompatActivity {
     //Order to be passed between intents
     ArrayList<ItemOrder> order = new ArrayList<>();
 
+    //Price set boolean
+    boolean priceSet = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,14 +119,13 @@ public class ViewItemTemplate extends AppCompatActivity {
                         }
                     }
 
-
-
                     RadioButton r = (RadioButton) view.findViewById(R.id.rbSelect);
                     r.setChecked(true);
 
                     //Set the item attributes
                     iOrder.setProtein(proteins.get(i));
-
+                    iOrder.setPrice(item.getPrices().get(i));
+                    priceSet = true;
 
                 }
             });
@@ -136,14 +138,29 @@ public class ViewItemTemplate extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Check that there is a protein selected
-                if(iOrder.getProtein() == null){
+                //Check that there is a protein selected (if it is needed)
+                if(iOrder.getProtein() == null && item.getProteins().size() > 1){
                     Toast.makeText(ViewItemTemplate.this, "Please choose a protein!", Toast.LENGTH_SHORT).show();
                 }else{
-                    order.add(iOrder);
+
+                    iOrder.setName(item.getName());
+
+                    //If there is only one possible price, get that
+                    if(!priceSet){
+                        iOrder.setPrice(item.getPrices().get(0));
+                        order.add(iOrder);
+                        String msg = iOrder.name + " has been added!";
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                    }else{
+                        order.add(iOrder);
+                        String msg = iOrder.protein + " " + iOrder.name + " has been added!";
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }
             }
         });
 
-    }//c
+    }
 }
