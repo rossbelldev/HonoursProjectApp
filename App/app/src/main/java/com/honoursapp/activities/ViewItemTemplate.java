@@ -90,7 +90,6 @@ public class ViewItemTemplate extends AppCompatActivity {
             pricesString.add(s);
         }
 
-
         if(proteins != null){
             CustomArrayAdapter custAd = new CustomArrayAdapter(this, item.getProteins(), pricesString);
             lvProteins.setAdapter(custAd);
@@ -110,21 +109,18 @@ public class ViewItemTemplate extends AppCompatActivity {
                         }
                     }else{
                         for(int ii = 0; ii < adapterView.getCount(); ii++){
+
                             View v = adapterView.getChildAt(ii);
                             RadioButton r = (RadioButton) v.findViewById(R.id.rbSelect);
                             r.setChecked(false);
                         }
                     }
 
-
-
                     RadioButton r = (RadioButton) view.findViewById(R.id.rbSelect);
                     r.setChecked(true);
 
                     //Set the item attributes
                     iOrder.setProtein(proteins.get(i));
-
-
                 }
             });
 
@@ -144,6 +140,5 @@ public class ViewItemTemplate extends AppCompatActivity {
                 }
             }
         });
-
     }
 }
