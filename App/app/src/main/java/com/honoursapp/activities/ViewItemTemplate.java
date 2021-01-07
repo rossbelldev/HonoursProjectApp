@@ -145,5 +145,5 @@ public class ViewItemTemplate extends AppCompatActivity {
             }
         });
 
-    }
+    }//c
 }
