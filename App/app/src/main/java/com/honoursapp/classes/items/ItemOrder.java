@@ -1,10 +1,13 @@
 package com.honoursapp.classes.items;
 
-public class ItemOrder {
+import java.io.Serializable;
+
+public class ItemOrder implements Serializable {
 
     public String name;
     public String protein;
     public String cookingInstructions;
+    public double price;
     public int qty;
 
     //Default constructor
@@ -35,6 +38,14 @@ public class ItemOrder {
 
     public void setCookingInstructions(String cookingInstructions) {
         this.cookingInstructions = cookingInstructions;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public int getQty() {

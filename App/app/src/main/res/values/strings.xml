@@ -22,5 +22,8 @@
     <string name="add">Add to Order</string>
     <string name="qty">Quantity:</string>
 
+    <!-- activity_basket -->
+    <string name="basket">Your order items:</string>
+    <string name="pay">Finish and Pay</string>
 
 </resources>
