@@ -1,6 +1,8 @@
 package com.honoursapp.classes.items;
 
-public class ItemOrder {
+import java.io.Serializable;
+
+public class ItemOrder implements Serializable {
 
     public String name;
     public String protein;

@@ -2,19 +2,19 @@ package com.honoursapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.honoursapp.R;
 import com.honoursapp.calculations.SwapIDBtoItem;
-import com.honoursapp.classes.CustomArrayAdapter;
+import com.honoursapp.classes.adapters.CustomArrayAdapterProteins;
 import com.honoursapp.classes.items.Item;
 import com.honoursapp.classes.items.ItemDB;
 import com.honoursapp.classes.items.ItemOrder;
@@ -95,7 +95,7 @@ public class ViewItemTemplate extends AppCompatActivity {
 
 
         if(proteins != null){
-            CustomArrayAdapter custAd = new CustomArrayAdapter(this, item.getProteins(), pricesString);
+            CustomArrayAdapterProteins custAd = new CustomArrayAdapterProteins(this, item.getProteins(), pricesString);
             lvProteins.setAdapter(custAd);
 
             lvProteins.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -134,7 +134,7 @@ public class ViewItemTemplate extends AppCompatActivity {
             tvProteins.setVisibility(View.GONE);
         }
 
-        //Button for if the item is added to the order
+        //Onclick listener for the add button
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,6 +159,16 @@ public class ViewItemTemplate extends AppCompatActivity {
 
 
                 }
+            }
+        });
+
+        //Onclick listener for the basket button
+        btnBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), BasketActivity.class);
+                i.putExtra("order", order);
+                startActivity(i);
             }
         });
 
