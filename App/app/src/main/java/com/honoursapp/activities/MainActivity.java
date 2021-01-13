@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Display the burger bar menu (currently lets people sign in etc)
-                Intent i = new Intent(v.getContext(), PrintTestActivity.class);
+                Intent i = new Intent(v.getContext(), RegisterSignInActivity.class);
                 startActivity(i);
             }
         });

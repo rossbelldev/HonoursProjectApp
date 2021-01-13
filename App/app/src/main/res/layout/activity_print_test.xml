@@ -11,6 +11,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <EditText
+            android:id="@+id/etTextInp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter Text here"/>
+
         <Button
             android:id="@+id/btnPrint"
             android:layout_width="wrap_content"

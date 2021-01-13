@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.honoursapp.R;
@@ -29,6 +30,12 @@ public class PrintTestActivity extends AppCompatActivity {
     //Printing
     Printing pri;
 
+    //Edit Text
+    EditText etTextInp;
+
+    //String to be used across contexts
+    String inp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +47,9 @@ public class PrintTestActivity extends AppCompatActivity {
         //Pair the buttons
         btnPrint = (Button) findViewById(R.id.btnPrint);
         btnPair = (Button) findViewById(R.id.btnPair);
+
+        //Pair the edit text
+        etTextInp = (EditText) findViewById(R.id.etTextInp);
 
 //        if(pri != null){
 //            pri.setPrintingCallback(this);
@@ -78,7 +88,7 @@ public class PrintTestActivity extends AppCompatActivity {
 
     private void changePairAndUnpair() {
         if (Printooth.INSTANCE.hasPairedPrinter())
-            btnPair.setText(new StringBuilder("Unpair ").append(Printooth.INSTANCE
+            btnPair.setText(new StringBuilder("Un-pair ").append(Printooth.INSTANCE
                     .getPairedPrinter().getName()).toString());
         else
             btnPair.setText("Pair with Printer");
@@ -88,15 +98,17 @@ public class PrintTestActivity extends AppCompatActivity {
         ArrayList<Printable> prints = new ArrayList<>();
         prints.add(new RawPrintable.Builder(new byte[]{27, 100, 4}).build());
 
+        inp = etTextInp.getText().toString();
+
         //Set the text to be printed
-        prints.add(new TextPrintable.Builder()
-                .setText("Order Number 001")
-                .setCharacterCode(DefaultPrinter.Companion.getCHARCODE_PC1252())
-                .setNewLinesAfter(1)
-                .build());
+//        prints.add(new TextPrintable.Builder()
+//                .setText("Order Number 001")
+//                .setCharacterCode(DefaultPrinter.Companion.getCHARCODE_PC1252())
+//                .setNewLinesAfter(1)
+//                .build());    r
 
         prints.add(new TextPrintable.Builder()
-                .setText("Contents\n\n")
+                .setText(inp)
                 .setLineSpacing(DefaultPrinter.Companion.getLINE_SPACING_60())
                 .setAlignment(DefaultPrinter.Companion.getALIGNMENT_CENTER())
                 .setEmphasizedMode(DefaultPrinter.Companion.getEMPHASIZED_MODE_BOLD())
