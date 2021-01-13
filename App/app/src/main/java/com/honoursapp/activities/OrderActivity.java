@@ -53,8 +53,10 @@ public class OrderActivity extends AppCompatActivity {
             //Can only be 0 or 1. 0 is to table, 1 is for collection
             //Different information will be displayed depending on the selection.
             if(choice == 1){
-                //Order for collection options. Remove 'desserts' (currently index 8)
+                //Order for collection options.
+                //Remove 'desserts' (currently index 8)
                 categories.remove(8);
+                //Remove all alcoholic and hot drinks (only soft drinks for carryout)
             }
         }
 

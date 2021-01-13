@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.PrintTestActivity"></activity>
+        <activity android:name=".activities.PrintTestActivity"/> <!-- was </activity> -->
         <activity android:name=".activities.BasketActivity" />
         <activity android:name=".activities.RegisterSignInActivity" />
         <activity android:name=".activities.BrowseItemsActivity" />
@@ -29,6 +29,5 @@
     <!-- Will be removed when the printing test is done with (this will be on another app -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-<!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
 
 </manifest>

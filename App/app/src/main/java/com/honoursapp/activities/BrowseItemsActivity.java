@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.honoursapp.R;
 import com.honoursapp.classes.Order;
 import com.honoursapp.classes.items.ItemDB;
+import com.honoursapp.classes.items.ItemDBCat;
 import com.honoursapp.classes.items.ItemOrder;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
     //Array list for the list of items to be displayed
     ArrayList<String> toDisplay = new ArrayList<>();
     ArrayList<ItemDB> list = new ArrayList<>();
+    ArrayList<ItemDBCat> listCat = new ArrayList<>();
 
     //Order to be passed between activities
     ArrayList<ItemOrder> order = new ArrayList<>();
@@ -71,9 +73,8 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
         //Check to see if sub categories are needed
         if(category.equals("Drinks")){
-            //Sub category will be the list provided (not the search)
-            String[] cats = {"Soft Drinks","Hot Drinks","Beer","Wine","Cider","Vodka","Rum","Whisky","Gin","Alcohol Free","Other"};
-            toDisplay.addAll(Arrays.asList(cats));
+            //Sub categories will be retrieved from the other branch of the database (drinks branch)
+
         }else{
             //Else the fetch will execute
             DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("1OcAx3H04_kHY_cgU-Z8pAyuTEDuVNCit5Z9ohFt2L-4").child(category);
