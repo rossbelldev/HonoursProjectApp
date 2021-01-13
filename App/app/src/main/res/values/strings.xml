@@ -14,6 +14,7 @@
     <string name="name">Name</string>
     <string name="email">Email Address</string>
     <string name="Password">Password</string>
+    <string name="PasswordC">Confirm Password</string>
 
     <!-- activity_view_item_template -->
     <string name="desc">Description:</string>
