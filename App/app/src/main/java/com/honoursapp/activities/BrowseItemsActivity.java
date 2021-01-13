@@ -40,11 +40,10 @@ public class BrowseItemsActivity extends AppCompatActivity {
     //Array list for the list of items to be displayed
     ArrayList<String> toDisplay = new ArrayList<>();
     ArrayList<ItemDB> list = new ArrayList<>();
-    ArrayList<ItemDBCat> listCat = new ArrayList<>();
+    ArrayList<String> drinks = new ArrayList<>(Arrays.asList("Soft Drinks","Beer","Wine","Cider","Hot Drinks","Vodka","Rum","Whisky","Liqueurs"));
 
     //Order to be passed between activities
     ArrayList<ItemOrder> order = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +73,54 @@ public class BrowseItemsActivity extends AppCompatActivity {
         //Check to see if sub categories are needed
         if(category.equals("Drinks")){
             //Sub categories will be retrieved from the other branch of the database (drinks branch)
+            //Clear the todisplay and re-populate it
+            toDisplay.clear();
+            toDisplay.addAll(drinks);
+            adapter.notifyDataSetChanged();
+
+            //Get which sub-category is clicked
+            lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    //Update the values of "Soft Drinks" and "Hot Drinks" to be compatible with the database
+                    drinks.set(0,"SoftDrinks");
+                    drinks.set(4,"HotDrinks");
+
+                    //Get the database child for the slot i which is selected
+                    DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("1_wnfdbNOIqLl_-gC_sE0PtXb2oXo1-g0i8ldwXqgRkI").child(drinks.get(i));
+
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            //Clear the todisplay and re-populate it
+                            toDisplay.clear();
+                            for(DataSnapshot ds : snapshot.getChildren()){
+                                ItemDB itmDb = ds.getValue(ItemDB.class);
+                                list.add(itmDb);
+                                toDisplay.add(itmDb.getName());
+                            }
+                            //Change what is displayed
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(getApplicationContext(), "Problem: " + error, Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                    //Onclick for the items (drinks or otherwise)
+                    lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            Intent intent = new Intent(view.getContext(), ViewItemTemplate.class);
+                            intent.putExtra("itemDb", list.get(i));
+                            intent.putExtra("order", order);
+                            startActivity(intent);
+                        }
+                    });
+                }
+            });
 
         }else{
             //Else the fetch will execute
@@ -82,7 +129,8 @@ public class BrowseItemsActivity extends AppCompatActivity {
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                    //Clear the todisplay and re-populate it
+                    toDisplay.clear();
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
                         ItemDB itmDb = ds.getValue(ItemDB.class);
                         list.add(itmDb);
@@ -99,18 +147,18 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
             });
 
-        }
+            //Onclick for the items (drinks or otherwise)
+            lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(view.getContext(), ViewItemTemplate.class);
+                    intent.putExtra("itemDb", list.get(i));
+                    intent.putExtra("order", order);
+                    startActivity(intent);
+                }
+            });
 
-        //Onclick for the items
-        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(view.getContext(), ViewItemTemplate.class);
-                intent.putExtra("itemDb", list.get(i));
-                intent.putExtra("order", order);
-                startActivity(intent);
-            }
-        });
+        }
 
     }
 
