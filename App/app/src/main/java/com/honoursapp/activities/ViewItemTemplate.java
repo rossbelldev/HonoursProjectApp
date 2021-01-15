@@ -115,7 +115,6 @@ public class ViewItemTemplate extends AppCompatActivity {
                         }
                     }else{
                         for(int ii = 0; ii < adapterView.getCount(); ii++){
-
                             View v = adapterView.getChildAt(ii);
                             RadioButton r = (RadioButton) v.findViewById(R.id.rbSelect);
                             r.setChecked(false);
