@@ -29,9 +29,6 @@ public class OrderActivity extends AppCompatActivity {
     //Array list for categories with all the sections added by default (certain ones are removed for different methods
     ArrayList<String> categories = new ArrayList<>(Arrays.asList("Drinks","Starters","Curries","Tandoori","Specials","Vegetable Sides","Rice","Naan and Breads","Desserts"));
 
-    //Initialise the order to be passed between
-    ArrayList<ItemOrder> order = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +68,6 @@ public class OrderActivity extends AppCompatActivity {
                 //Start the browse items activity and pass the category which has been selected
                 Intent i = new Intent(view.getContext(), BrowseItemsActivity.class);
                 i.putExtra("category", categories.get(position));
-                i.putExtra("order", order);
                 startActivity(i);
             }
         });

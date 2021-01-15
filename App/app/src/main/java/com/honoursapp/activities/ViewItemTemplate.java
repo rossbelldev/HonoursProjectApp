@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.honoursapp.R;
 import com.honoursapp.calculations.SwapIDBtoItem;
+import com.honoursapp.classes.OrderHolder;
 import com.honoursapp.classes.adapters.CustomArrayAdapterProteins;
 import com.honoursapp.classes.items.Item;
 import com.honoursapp.classes.items.ItemDB;
@@ -55,6 +56,9 @@ public class ViewItemTemplate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_item_template);
 
+        //Get the order from the Order data holder
+        final ArrayList<ItemOrder> order = OrderHolder.getInstance().order;
+
         //Pair all buttons
         btnBurgerBar = (Button) findViewById(R.id.btnBurgerBar);
         btnBasket = (Button) findViewById(R.id.btnBasket);
@@ -74,7 +78,6 @@ public class ViewItemTemplate extends AppCompatActivity {
 
         if(extras != null){
             itemDB = (ItemDB) extras.get("itemDb");
-            order = (ArrayList<ItemOrder>) extras.get("order");
         }
 
         //Send it off to be swapped to a more usable format
@@ -166,7 +169,6 @@ public class ViewItemTemplate extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), BasketActivity.class);
-                i.putExtra("order", order);
                 startActivity(i);
             }
         });

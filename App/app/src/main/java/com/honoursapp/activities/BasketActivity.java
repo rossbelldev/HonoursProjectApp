@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.honoursapp.R;
+import com.honoursapp.classes.OrderHolder;
 import com.honoursapp.classes.adapters.CustomArrayAdapterBasket;
 import com.honoursapp.classes.items.ItemOrder;
 
@@ -20,9 +21,6 @@ public class BasketActivity extends AppCompatActivity {
     //ListView
     ListView lvOrder;
 
-    //ArrayLsit<ItemOrder> to be retrieved from extras
-    ArrayList<ItemOrder> order = new ArrayList<>();
-
     //Array Lists to be populated with the info to put on the order
     ArrayList<String> nameAndProtein = new ArrayList<>();
     ArrayList<String> priceString = new ArrayList<>();
@@ -32,12 +30,8 @@ public class BasketActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
 
-        //Get the extras
-        Bundle extras = getIntent().getExtras();
-
-        if(extras != null){
-            order = (ArrayList<ItemOrder>) extras.get("order");
-        }
+        //Get the order from the order holder
+        final ArrayList<ItemOrder> order = OrderHolder.getInstance().order;
 
         //Pair the buttons
         btnPay = (Button) findViewById(R.id.btnPay);

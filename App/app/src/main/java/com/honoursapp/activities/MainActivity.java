@@ -74,8 +74,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Can test if a user is signed in or not. If they are then proceed, else get them to register. (Will be done automatically at some point)
-        /*
+        //Can test if a user is signed in or not. If they are then proceed, else get them to register. (Will be done automatically at some point
         btnCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-         */
+
 
     }
 }

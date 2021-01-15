@@ -42,9 +42,6 @@ public class BrowseItemsActivity extends AppCompatActivity {
     ArrayList<ItemDB> list = new ArrayList<>();
     ArrayList<String> drinks = new ArrayList<>(Arrays.asList("Soft Drinks","Beer","Wine","Cider","Hot Drinks","Vodka","Rum","Whisky","Liqueurs"));
 
-    //Order to be passed between activities
-    ArrayList<ItemOrder> order = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +52,6 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
         if(extras != null){
             category = extras.getString("category");
-            order = (ArrayList<ItemOrder>) extras.get("order");
         }
 
         //Buttons
@@ -115,7 +111,6 @@ public class BrowseItemsActivity extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             Intent intent = new Intent(view.getContext(), ViewItemTemplate.class);
                             intent.putExtra("itemDb", list.get(i));
-                            intent.putExtra("order", order);
                             startActivity(intent);
                         }
                     });
@@ -153,7 +148,6 @@ public class BrowseItemsActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent = new Intent(view.getContext(), ViewItemTemplate.class);
                     intent.putExtra("itemDb", list.get(i));
-                    intent.putExtra("order", order);
                     startActivity(intent);
                 }
             });
