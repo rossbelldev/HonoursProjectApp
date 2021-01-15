@@ -107,8 +107,8 @@ public class ViewItemTemplate extends AppCompatActivity {
                     //Uncheck all other items, then check the one that needs to be checked
                     int len = adapterView.getLastVisiblePosition() - adapterView.getFirstVisiblePosition();
 
-                    if(len > 2){
-                        for(int ii = 0; ii < len; ii++){
+                    if(len >= 2){
+                        for(int ii = 0; ii <= len; ii++){
                             View v = adapterView.getChildAt(ii);
                             RadioButton r = (RadioButton) v.findViewById(R.id.rbSelect);
                             r.setChecked(false);
