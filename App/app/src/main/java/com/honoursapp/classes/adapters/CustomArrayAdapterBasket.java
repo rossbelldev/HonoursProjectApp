@@ -19,14 +19,16 @@ public class CustomArrayAdapterBasket extends ArrayAdapter<String> {
     private final Activity context;
     private final ArrayList<String> proteinAndName;
     private final ArrayList<String> price;
+    private final ArrayList<String> qty;
 
-    public CustomArrayAdapterBasket(Activity context, ArrayList<String> proteinAndName, ArrayList<String> price){
+    public CustomArrayAdapterBasket(Activity context, ArrayList<String> proteinAndName, ArrayList<String> price, ArrayList<String> qty){
 
         super(context, R.layout.list_basket_items, proteinAndName);
 
         this.context = context;
         this.proteinAndName = proteinAndName;
         this.price = price;
+        this.qty = qty;
     }
 
     public View getView(int position, View view, ViewGroup parent){
@@ -36,7 +38,9 @@ public class CustomArrayAdapterBasket extends ArrayAdapter<String> {
 
         TextView tvName = (TextView) rowView.findViewById(R.id.tvName);
         TextView tvPrice = (TextView) rowView.findViewById(R.id.tvPrice);
+        TextView tvQty = (TextView) rowView.findViewById(R.id.tvQty);
 
+        tvQty.setText(qty.get(position));
         tvName.setText(proteinAndName.get(position));
 
         String p = "£" + price.get(position);
