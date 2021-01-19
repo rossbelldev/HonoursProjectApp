@@ -146,7 +146,6 @@ public class ViewItemTemplate extends AppCompatActivity {
                 //Set the name to be checked
                 iOrder.setName(item.getName());
 
-                //New stuff
                 if(order.size() > 0){
                     //The order already has items on it
                     //Check to see if it contains the item which is trying to be added. (for(ItemOrder io : order){} loop does not work here for some reason)
@@ -156,22 +155,34 @@ public class ViewItemTemplate extends AppCompatActivity {
                         if(io.getName().equals(iOrder.getName())){
                             //The item name is the same, check to see if it has a protein
                             int qty = io.getQty();
-                            if(iOrder.getProtein() != null || iOrder.getProtein().isEmpty()){
+                            if(iOrder.getProtein() != null){
                                 //The item being added has a protein, check it too
                                 if(io.getProtein().equals(iOrder.getProtein())){
                                     //The protein is the same, increase qty
                                     qty++;
                                     io.setQty(qty);
+
+                                    double price = iOrder.getPrice();
+                                    price = price * qty;
+                                    io.setPrice(price);
+
                                     String msg = iOrder.protein + " " + iOrder.name + " qty has increased!";
                                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
                                 }
+
                                 found = true;
 
                             }else{
                                 //The item being added does not have a protein, and the name is the same, increase qty
                                 found = true;
+
                                 qty++;
                                 io.setQty(qty);
+
+                                double price = iOrder.getPrice();
+                                price = price * qty;
+                                io.setPrice(price);
+
                                 String msg = iOrder.name + " qty has increased!";
                                 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
                             }
@@ -186,11 +197,11 @@ public class ViewItemTemplate extends AppCompatActivity {
                     }
 
                 }else{
+                    //The item being added is the first item on the order, add it
                     add = true;
                 }
 
                 if(add){
-                    //If the order size is greater than 0 but the item is not already on the list, then just add as normal
                     //Check that there is a protein selected (if it is needed)
                     if(iOrder.getProtein() == null && item.getProteins().size() > 1){
                         Toast.makeText(ViewItemTemplate.this, "Please choose a protein!", Toast.LENGTH_SHORT).show();
@@ -212,6 +223,7 @@ public class ViewItemTemplate extends AppCompatActivity {
                         }
 
                     }
+
                 }
 
             }
@@ -225,8 +237,9 @@ public class ViewItemTemplate extends AppCompatActivity {
                 Intent i = new Intent(view.getContext(), BasketActivity.class);
                 startActivity(i);
             }
+
         });
 
-
     }
+
 }
