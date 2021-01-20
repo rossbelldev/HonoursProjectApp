@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Order {
 
     ArrayList<ItemOrder> orderItems;
+    public String destination;
     public User user;
 
     //Default Constructor
@@ -21,6 +22,14 @@ public class Order {
 
     public void setOrderItems(ArrayList<ItemOrder> orderItems){
         this.orderItems = orderItems;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     public User getUser() {
