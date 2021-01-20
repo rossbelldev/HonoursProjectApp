@@ -1,6 +1,6 @@
 package com.honoursapp.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
+import  androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import com.honoursapp.classes.items.Item;
 import com.honoursapp.classes.items.ItemDB;
 import com.honoursapp.classes.items.ItemOrder;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -38,15 +39,15 @@ public class ViewItemTemplate extends AppCompatActivity {
     //ItemDB to be used across contexts
     ItemDB itemDB = new ItemDB();
 
+    //Category String to be passed back on item selection
+    String category;
+
     //Array list proteins
     ArrayList<String> proteins = new ArrayList<>();
     ArrayList<String> pricesString = new ArrayList<>();
 
     //Item Order initialised
     ItemOrder iOrder = new ItemOrder();
-
-    //Order to be passed between intents
-    ArrayList<ItemOrder> order = new ArrayList<>();
 
     //Price set boolean
     boolean priceSet = false;
@@ -78,6 +79,7 @@ public class ViewItemTemplate extends AppCompatActivity {
 
         if(extras != null){
             itemDB = (ItemDB) extras.get("itemDb");
+            category = extras.getString("category");
         }
 
         //Send it off to be swapped to a more usable format
@@ -143,6 +145,9 @@ public class ViewItemTemplate extends AppCompatActivity {
                 boolean add = false;
                 boolean found = false;
 
+                //Formatting for the price to round and display properly
+                DecimalFormat priceFormat = new DecimalFormat("#.##");
+
                 //Set the name to be checked
                 iOrder.setName(item.getName());
 
@@ -164,10 +169,13 @@ public class ViewItemTemplate extends AppCompatActivity {
 
                                     double price = iOrder.getPrice();
                                     price = price * qty;
+                                    price = Double.parseDouble(priceFormat.format(price));
                                     io.setPrice(price);
 
                                     String msg = iOrder.protein + " " + iOrder.name + " qty has increased!";
                                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+                                    returnUser();
                                 }
 
                                 found = true;
@@ -181,10 +189,13 @@ public class ViewItemTemplate extends AppCompatActivity {
 
                                 double price = iOrder.getPrice();
                                 price = price * qty;
+                                price = Double.parseDouble(priceFormat.format(price));
                                 io.setPrice(price);
 
                                 String msg = iOrder.name + " qty has increased!";
                                 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+                                returnUser();
                             }
 
                         }
@@ -224,6 +235,8 @@ public class ViewItemTemplate extends AppCompatActivity {
 
                     }
 
+                    returnUser();
+
                 }
 
             }
@@ -240,6 +253,13 @@ public class ViewItemTemplate extends AppCompatActivity {
 
         });
 
+    }
+
+    private void returnUser(){
+        //Return the user back to the previous screen they were on
+        Intent i = new Intent(getApplicationContext(), BrowseItemsActivity.class);
+        i.putExtra("category",category);
+        startActivity(i);
     }
 
 }

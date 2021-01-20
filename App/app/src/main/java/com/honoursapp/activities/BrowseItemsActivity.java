@@ -148,6 +148,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent = new Intent(view.getContext(), ViewItemTemplate.class);
                     intent.putExtra("itemDb", list.get(i));
+                    intent.putExtra("category", category);
                     startActivity(intent);
                 }
             });
