@@ -65,6 +65,8 @@ public class OrderActivity extends AppCompatActivity {
         lvCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                categories.set(5,"VegSides");
+                categories.set(7,"Breads");
                 //Start the browse items activity and pass the category which has been selected
                 Intent i = new Intent(view.getContext(), BrowseItemsActivity.class);
                 i.putExtra("category", categories.get(position));
