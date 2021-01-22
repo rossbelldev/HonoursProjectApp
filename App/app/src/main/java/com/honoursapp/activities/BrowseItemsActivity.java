@@ -66,6 +66,15 @@ public class BrowseItemsActivity extends AppCompatActivity {
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, toDisplay);
         lvItems.setAdapter(adapter);
 
+        //On click for the basket button
+        btnBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), BasketActivity.class);
+                startActivity(i);
+            }
+        });
+
         //Check to see if sub categories are needed
         if(category.equals("Drinks")){
             //Sub categories will be retrieved from the other branch of the database (drinks branch)

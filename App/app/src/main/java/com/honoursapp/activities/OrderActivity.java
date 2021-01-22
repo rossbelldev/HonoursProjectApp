@@ -74,5 +74,14 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
+        //On click for the basket button
+        btnBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), BasketActivity.class);
+                startActivity(i);
+            }
+        });
+
     }
 }

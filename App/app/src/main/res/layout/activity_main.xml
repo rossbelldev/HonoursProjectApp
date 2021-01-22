@@ -5,54 +5,92 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="20dp"
-        android:paddingRight="50dp"
-        android:paddingTop="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="10">
 
-        <Button
-            android:id="@+id/btnBurger"
-            android:layout_width="60dp"
-            android:layout_height="60dp"/>
-
-        <Button
-            android:id="@+id/btnOrderToTable"
-            android:text="@string/orderToTable"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="165dp"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="7"
+            android:layout_weight="9"
+            android:background="@color/main">
 
-        <Button
-            android:id="@+id/btnOrderForCollection"
-            android:text="@string/orderForCollection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="50dp"/>
+            <Button
+                android:id="@+id/btnBurger"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0"/>
 
-        <Button
-            android:id="@+id/btnBookTable"
-            android:text="@string/bookTable"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="50dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="Order Alma"
+                android:textColor="@color/mainWhite"
+                android:textSize="40dp"/>
 
-        <Button
-            android:id="@+id/btnCheckSignIn"
-            android:text="Check Sign in"
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="50dp"/>
+            android:layout_height="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="50dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnOrderToTable"
+                android:text="@string/orderToTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="165dp"
+                android:background="@drawable/rounded_corners"
+                android:textColor="@color/mainWhite"/>
+
+            <Button
+                android:id="@+id/btnOrderForCollection"
+                android:text="@string/orderForCollection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/rounded_corners"
+                android:textColor="@color/mainWhite"/>
+
+            <Button
+                android:id="@+id/btnBookTable"
+                android:text="@string/bookTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/rounded_corners"
+                android:textColor="@color/mainWhite"/>
+
+            <Button
+                android:id="@+id/btnCheckSignIn"
+                android:text="Check Sign in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/rounded_corners"
+                android:textColor="@color/mainWhite"/>
+
+        </LinearLayout>
 
     </LinearLayout>
-
-   
 
 </androidx.constraintlayout.widget.ConstraintLayout>
