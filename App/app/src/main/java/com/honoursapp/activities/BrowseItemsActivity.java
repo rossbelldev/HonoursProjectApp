@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -37,6 +38,9 @@ public class BrowseItemsActivity extends AppCompatActivity {
     //String for the extras
     String category;
 
+    //Text Views
+    TextView tvCat;
+
     //Array list for the list of items to be displayed
     ArrayList<String> toDisplay = new ArrayList<>();
     ArrayList<ItemDB> list = new ArrayList<>();
@@ -62,9 +66,24 @@ public class BrowseItemsActivity extends AppCompatActivity {
         //List view
         lvItems = (ListView) findViewById(R.id.lvItems);
 
+        //Text Views
+        tvCat = (TextView) findViewById(R.id.tvCat);
+
+        //Update the title of the page
+        tvCat.setText(category);
+
         //Adapter
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, toDisplay);
         lvItems.setAdapter(adapter);
+
+        //On click for the basket button
+        btnBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), BasketActivity.class);
+                startActivity(i);
+            }
+        });
 
         //Check to see if sub categories are needed
         if(category.equals("Drinks")){

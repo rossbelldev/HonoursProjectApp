@@ -1,8 +1,13 @@
 package com.honoursapp.activities;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.OnBackPressedDispatcherOwner;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -37,8 +42,21 @@ public class BasketActivity extends AppCompatActivity {
         //Pair the buttons
         btnPay = (Button) findViewById(R.id.btnPay);
 
+
         //Pair the list view
         lvOrder = (ListView) findViewById(R.id.lvOrder);
+
+        //Custom back button to make the user go back to the order screen
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent i = new Intent(getApplicationContext(), OrderActivity.class);
+                i.putExtra("method",0);
+                startActivity(i);
+            }
+        };
+
+        getOnBackPressedDispatcher().addCallback(this,callback);
 
         //Display the information (if the order is not null)
         if(order != null){
@@ -70,4 +88,5 @@ public class BasketActivity extends AppCompatActivity {
         }
 
     }
+
 }

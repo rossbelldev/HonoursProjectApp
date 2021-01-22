@@ -55,7 +55,9 @@
                 android:text="@string/reg"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"/>
+                android:layout_weight="0.5"
+                android:background="@drawable/rounded_corners"
+                android:textColor="@color/mainWhite"/>
 
             <Button
                 android:id="@+id/btnSignIn"
@@ -63,7 +65,9 @@
                 android:layout_width="0dp"
                 android:layout_marginLeft="20dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"/>
+                android:layout_weight="0.5"
+                android:background="@drawable/rounded_corners"
+                android:textColor="@color/mainWhite"/>
 
         </LinearLayout>
 

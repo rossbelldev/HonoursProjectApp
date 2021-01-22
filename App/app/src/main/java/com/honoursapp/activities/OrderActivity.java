@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.honoursapp.R;
 import com.honoursapp.classes.Order;
@@ -25,6 +26,9 @@ public class OrderActivity extends AppCompatActivity {
 
     //List View
     ListView lvCategories;
+
+    //Text views
+    TextView tvmethod;
 
     //Array list for categories with all the sections added by default (certain ones are removed for different methods
     ArrayList<String> categories = new ArrayList<>(Arrays.asList("Drinks","Starters","Curries","Tandoori","Specials","Vegetable Sides","Rice","Naan and Breads","Desserts"));
@@ -42,6 +46,9 @@ public class OrderActivity extends AppCompatActivity {
         //List view
         lvCategories = (ListView) findViewById(R.id.lvCategories);
 
+        //Text views
+        tvmethod = (TextView) findViewById(R.id.tvCat);
+
         //Get the extras which have been passed
         Bundle extras = getIntent().getExtras();
 
@@ -50,10 +57,13 @@ public class OrderActivity extends AppCompatActivity {
             //Can only be 0 or 1. 0 is to table, 1 is for collection
             //Different information will be displayed depending on the selection.
             if(choice == 1){
+                tvmethod.setText("Order for Collection");
                 //Order for collection options.
                 //Remove 'desserts' (currently index 8)
                 categories.remove(8);
                 //Remove all alcoholic and hot drinks (only soft drinks for carryout)
+            }else{
+                tvmethod.setText("Order to Table");
             }
         }
 
@@ -65,9 +75,20 @@ public class OrderActivity extends AppCompatActivity {
         lvCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                categories.set(5,"VegSides");
+                categories.set(7,"Breads");
                 //Start the browse items activity and pass the category which has been selected
                 Intent i = new Intent(view.getContext(), BrowseItemsActivity.class);
                 i.putExtra("category", categories.get(position));
+                startActivity(i);
+            }
+        });
+
+        //On click for the basket button
+        btnBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(view.getContext(), BasketActivity.class);
                 startActivity(i);
             }
         });
