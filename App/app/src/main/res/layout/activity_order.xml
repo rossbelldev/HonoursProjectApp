@@ -25,12 +25,24 @@
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
                 android:paddingTop="20dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/main">
 
                 <Button
                     android:id="@+id/btnBurgerBar"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"/>
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/btn_burger_bar"/>
+
+                <TextView
+                    android:id="@+id/tvCat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/mainWhite"
+                    android:textSize="30sp"/>
 
             </LinearLayout>
 
@@ -65,7 +77,9 @@
                     android:text="@string/checkout"
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
-                    android:layout_height="60dp"/>
+                    android:layout_height="60dp"
+                    android:background="@drawable/rounded_corners"
+                    android:textColor="@color/mainWhite"/>
 
                 <Button
                     android:id="@+id/btnBasket"

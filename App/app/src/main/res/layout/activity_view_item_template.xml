@@ -20,23 +20,25 @@
             android:paddingRight="20dp"
             android:paddingLeft="20dp"
             android:paddingTop="20dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/main">
 
             <Button
                 android:id="@+id/btnBurgerBar"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_burger_bar"/>
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textStyle="bold"
-                android:textSize="30dp"
+                android:textSize="30sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginRight="20dp"
+                android:textColor="@color/mainWhite"/>
 
         </LinearLayout>
 
@@ -106,7 +108,9 @@
                 android:text="@string/add"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
-                android:layout_height="60dp"/>
+                android:layout_height="60dp"
+                android:background="@drawable/rounded_corners"
+                android:textColor="@color/mainWhite"/>
 
             <Button
                 android:id="@+id/btnBasket"
