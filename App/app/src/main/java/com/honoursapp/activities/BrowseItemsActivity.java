@@ -1,5 +1,6 @@
 package com.honoursapp.activities;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -71,6 +72,18 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
         //Update the title of the page
         tvCat.setText(category);
+
+        //Custom back button to make the user go back to the order screen
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent i = new Intent(getApplicationContext(), OrderActivity.class);
+                i.putExtra("method",0);
+                startActivity(i);
+            }
+        };
+
+        getOnBackPressedDispatcher().addCallback(this,callback);
 
         //Adapter
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, toDisplay);

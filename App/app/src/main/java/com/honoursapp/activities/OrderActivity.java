@@ -1,5 +1,6 @@
 package com.honoursapp.activities;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -66,6 +67,18 @@ public class OrderActivity extends AppCompatActivity {
                 tvmethod.setText("Order to Table");
             }
         }
+
+        //Custom back button to make the user go back to the order screen
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                i.putExtra("method",0);
+                startActivity(i);
+            }
+        };
+
+        getOnBackPressedDispatcher().addCallback(this,callback);
 
         //Show a list view for all of the items in categories
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, categories);
