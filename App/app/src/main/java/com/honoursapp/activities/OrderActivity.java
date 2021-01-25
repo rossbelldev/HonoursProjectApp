@@ -23,7 +23,7 @@ import java.util.Arrays;
 public class OrderActivity extends AppCompatActivity {
 
     //Buttons
-    Button btnBurgerBar, btnProceed, btnBasket;
+    Button btnBurgerBar, btnProceed;
 
     //List View
     ListView lvCategories;
@@ -42,7 +42,6 @@ public class OrderActivity extends AppCompatActivity {
         //Buttons
         btnBurgerBar = (Button) findViewById(R.id.btnBurgerBar);
         btnProceed = (Button) findViewById(R.id.btnProceed);
-        btnBasket = (Button) findViewById(R.id.btnBasket);
 
         //List view
         lvCategories = (ListView) findViewById(R.id.lvCategories);
@@ -98,7 +97,7 @@ public class OrderActivity extends AppCompatActivity {
         });
 
         //On click for the basket button
-        btnBasket.setOnClickListener(new View.OnClickListener() {
+        btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), BasketActivity.class);

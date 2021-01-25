@@ -31,7 +31,7 @@ import java.util.Arrays;
 public class BrowseItemsActivity extends AppCompatActivity {
 
     //Buttons
-    Button btnBurgerBar, btnBasket, btnProceed;
+    Button btnBurgerBar, btnProceed;
 
     //List View
     ListView lvItems;
@@ -61,7 +61,6 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
         //Buttons
         btnBurgerBar = (Button) findViewById(R.id.btnBurgerBar);
-        btnBasket = (Button) findViewById(R.id.btnBasket);
         btnProceed = (Button) findViewById(R.id.btnProceed);
 
         //List view
@@ -90,7 +89,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
         lvItems.setAdapter(adapter);
 
         //On click for the basket button
-        btnBasket.setOnClickListener(new View.OnClickListener() {
+        btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), BasketActivity.class);
