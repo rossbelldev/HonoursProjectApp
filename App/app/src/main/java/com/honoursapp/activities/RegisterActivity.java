@@ -1,9 +1,5 @@
 package com.honoursapp.activities;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.*;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,15 +12,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.honoursapp.R;
 
-public class RegisterSignInActivity extends AppCompatActivity {
-
-    //Edit texts
-    EditText etEmail, etPassword;
+public class RegisterActivity extends AppCompatActivity {
 
     //Buttons
-    Button btnRegister, btnSignIn;
+    Button btnRegister;
+
+    //Edit texts
+    EditText etEmail, etPass, etPassConf;
 
     //Firebase authentication (to be added to gradle (app): (implementation 'com.google.firebase:firebase-auth:18.0.0'))
     FirebaseAuth auth;
@@ -32,18 +32,18 @@ public class RegisterSignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_sign_in);
+        setContentView(R.layout.activity_register);
 
         //Initialise the aut
         auth = FirebaseAuth.getInstance();
 
-        //Find the Edit texts
-        etEmail = (EditText) findViewById(R.id.etEmail);
-        etPassword = (EditText) findViewById(R.id.etPass);
-
-        //Find the buttons
+        //Pair Buttons
         btnRegister = (Button) findViewById(R.id.btnRegister);
-        btnSignIn = (Button) findViewById(R.id.btnSignIn);
+
+        //Pair edit texts
+        etEmail = (EditText) findViewById(R.id.etEmail);
+        etPass = (EditText) findViewById(R.id.etPass);
+        etPassConf = (EditText) findViewById(R.id.etPassConf);
 
         etEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -54,36 +54,42 @@ public class RegisterSignInActivity extends AppCompatActivity {
             }
         });
 
-        etPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etPass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if(b){
-                    etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    etPassword.setText("");
+                    etPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    etPass.setText("");
+                }
+            }
+        });
+
+        etPassConf.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    etPassConf.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    etPassConf.setText("");
                 }
             }
         });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //Start the register activity
-                Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivity(i);
-            }
-        });
-
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View view) {
-                //Record the values that have been input
                 String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
+                String password = etPass.getText().toString();
+                String passwordConf = etPassConf.getText().toString();
 
-                if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
+                if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordConf)){
                     Toast.makeText(getApplicationContext(), "Please enter details", Toast.LENGTH_LONG).show();
+                }else if(password.length() < 7){
+                    Toast.makeText(getApplicationContext(),"Enter a password which has 7 characters",Toast.LENGTH_LONG).show();
+                }else if(!password.equals(passwordConf)){
+                    Toast.makeText(getApplicationContext(),"Passwords do not match!",Toast.LENGTH_LONG).show();
                 }else{
-                    signIn(email, password);
+                    // TODO: Make this add the name to the account too!
+                    register(email, password);
                 }
             }
         });
@@ -92,7 +98,7 @@ public class RegisterSignInActivity extends AppCompatActivity {
 
     private void register(String email, String password){
 
-        auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(RegisterSignInActivity.this, new OnCompleteListener<AuthResult>() {
+        auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){

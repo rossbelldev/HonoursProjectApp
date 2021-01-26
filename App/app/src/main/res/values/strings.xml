@@ -9,12 +9,13 @@
     <string name="checkout">Proceed to Checkout</string>
 
     <!-- activity_register_sign_in -->
-    <string name="reg">Register</string>
+    <string name="reg">Register Now</string>
+    <string name="acc">If you do not have an account, register below.</string>
     <string name="sign">Sign In</string>
     <string name="name">Name</string>
     <string name="email">Email Address</string>
     <string name="Password">Password</string>
-    <string name="PasswordC">Confirm Password</string>
+    <string name="PasswordConf">Confirm Password</string>
 
     <!-- activity_view_item_template -->
     <string name="desc">Description:</string>
