@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.PaymentActivity"></activity>
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.PrintTestActivity" /> <!-- was </activity> -->
         <activity android:name=".activities.BasketActivity" />
@@ -25,8 +26,8 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
 </manifest>
