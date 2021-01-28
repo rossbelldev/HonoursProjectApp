@@ -85,6 +85,14 @@ public class BasketActivity extends AppCompatActivity {
             CustomArrayAdapterBasket cust = new CustomArrayAdapterBasket(this, nameAndProtein, priceString, qtyString);
             lvOrder.setAdapter(cust);
 
+            btnPay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getApplicationContext(), PaymentActivity.class);
+                    startActivity(i);
+                }
+            });
+
         }
 
     }
