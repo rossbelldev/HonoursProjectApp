@@ -1,7 +1,6 @@
 package com.honoursapp.classes.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 import com.honoursapp.R;
 import com.honoursapp.activities.BasketActivity;
-import com.honoursapp.classes.OrderHolder;
-import com.honoursapp.classes.items.ItemDB;
+import com.honoursapp.classes.holders.OrderHolder;
 import com.honoursapp.classes.items.ItemOrder;
 
 import java.text.DecimalFormat;

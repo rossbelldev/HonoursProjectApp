@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.honoursapp.R;
+import com.honoursapp.classes.holders.MethodHolder;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
         //Initialise the firebase authentication
         auth = FirebaseAuth.getInstance();
 
+        //Get the boolean for the method
+        ArrayList<Integer> method = MethodHolder.getInstance().method;
+
         //Check to see if the user is signed in
         FirebaseUser u = auth.getCurrentUser();
         if(u == null){
@@ -48,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Open the order to table view
                 Intent i = new Intent(v.getContext(), OrderActivity.class);
-                i.putExtra("method", 0);
+                method.clear();
+                method.add(0);
                 startActivity(i);
             }
         });
@@ -58,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Open the order for collection view
                 Intent i = new Intent(v.getContext(), OrderActivity.class);
-                i.putExtra("method", 1);
+                method.clear();
+                method.add(1);
                 startActivity(i);
             }
         });

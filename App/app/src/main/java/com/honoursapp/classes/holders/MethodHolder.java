@@ -1,8 +1,10 @@
-package com.honoursapp.classes;
+package com.honoursapp.classes.holders;
+
+import java.util.ArrayList;
 
 public class MethodHolder {
 
-    public final int method = 0;
+    public final ArrayList<Integer> method = new ArrayList<>();
 
     private MethodHolder(){}
 

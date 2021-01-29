@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,8 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.honoursapp.R;
-import com.honoursapp.classes.Order;
-import com.honoursapp.classes.items.ItemOrder;
+import com.honoursapp.classes.holders.MethodHolder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,22 +47,19 @@ public class OrderActivity extends AppCompatActivity {
         //Text views
         tvmethod = (TextView) findViewById(R.id.tvCat);
 
-        //Get the extras which have been passed
-        Bundle extras = getIntent().getExtras();
+        //Get the method from the Method holder
+        final ArrayList<Integer> methodHolder = MethodHolder.getInstance().method;
 
-        if(extras != null){
-            int choice = extras.getInt("method");
-            //Can only be 0 or 1. 0 is to table, 1 is for collection
-            //Different information will be displayed depending on the selection.
-            if(choice == 1){
-                tvmethod.setText("Order for Collection");
-                //Order for collection options.
-                //Remove 'desserts' (currently index 8)
-                categories.remove(8);
-                //Remove all alcoholic and hot drinks (only soft drinks for carryout)
-            }else{
-                tvmethod.setText("Order to Table");
-            }
+        int method = methodHolder.get(0);
+
+        if(method == 1){
+            tvmethod.setText("Order for Collection");
+            //Order for collection options.
+            //Remove 'desserts' (currently index 8)
+            categories.remove(8);
+            //Remove all alcoholic and hot drinks (only soft drinks for carryout)
+        }else{
+            tvmethod.setText("Order to Table");
         }
 
         //Custom back button to make the user go back to the order screen
