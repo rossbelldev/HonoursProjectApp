@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.honoursapp.R;
 import com.honoursapp.classes.holders.OrderHolder;
@@ -86,8 +87,12 @@ public class BasketActivity extends AppCompatActivity {
             btnPay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i = new Intent(getApplicationContext(), PaymentActivity.class);
-                    startActivity(i);
+                    if(!order.isEmpty()){
+                        Intent i = new Intent(getApplicationContext(), PaymentActivity.class);
+                        startActivity(i);
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Please make an order first!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
