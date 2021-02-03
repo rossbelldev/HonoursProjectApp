@@ -45,5 +45,7 @@
         <item>Table 14</item>
         <item>Table 16</item>
     </string-array>
+    <string name="tableArea">Table number (or bar)</string>
+    <string name="pickup">Pickup Name</string>
 
 </resources>
