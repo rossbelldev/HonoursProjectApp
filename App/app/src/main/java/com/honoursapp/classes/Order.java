@@ -9,6 +9,7 @@ public class Order {
     ArrayList<ItemOrder> orderItems;
     public String destination;
     public User user;
+    public double totalPrice;
 
     //Default Constructor
     public Order(){
@@ -38,5 +39,13 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

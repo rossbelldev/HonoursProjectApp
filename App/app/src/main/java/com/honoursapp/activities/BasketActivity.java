@@ -88,7 +88,7 @@ public class BasketActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if(!order.isEmpty()){
-                        Intent i = new Intent(getApplicationContext(), PaymentActivity.class);
+                        Intent i = new Intent(getApplicationContext(), PayActivity.class);
                         startActivity(i);
                     }else{
                         Toast.makeText(getApplicationContext(), "Please make an order first!", Toast.LENGTH_SHORT).show();

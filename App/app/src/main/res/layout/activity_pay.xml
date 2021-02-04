@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.PaymentActivity">
+    tools:context=".activities.PayActivity">
 
     <!-- Whole page -->
     <LinearLayout
@@ -50,6 +50,15 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btnPay"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/payment"
+                android:background="@drawable/rounded_corners"
+                android:textColor="@color/mainWhite"/>
 
         </LinearLayout>
 
