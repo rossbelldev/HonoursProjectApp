@@ -42,10 +42,13 @@ public class PayActivity extends AppCompatActivity {
     //Buttons
     Button btnPay;
 
+    //Order to be used
+    Order order = new Order();
+
     //Order total price
     double totalPrice = 0;
 
-    private int payPalRequestCode = 17;
+    private int payPalRequestCode = 12;
 
     private static PayPalConfiguration payPalConfig = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX).clientId(PayPalClientIDConfig.paypalId);
 
@@ -118,7 +121,6 @@ public class PayActivity extends AppCompatActivity {
 
                 if(met){
                     //Finalise the order as an order object
-                    Order order = new Order();
                     order.setDestination(location);
                     order.setOrderItems(orderHeld);
                     order.setTotalPrice(totalPrice);
