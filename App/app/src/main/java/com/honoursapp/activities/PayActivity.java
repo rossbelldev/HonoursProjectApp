@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.honoursapp.R;
 import com.honoursapp.classes.Order;
 import com.honoursapp.classes.PayPalClientIDConfig;
@@ -27,27 +29,29 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class PayActivity extends AppCompatActivity {
 
-    //Spinner
+    // Spinner
     Spinner spTableChoice;
 
-    //Edit Text
+    // Edit Text
     EditText etPickupName;
 
-    //Text views
+    // Text views
     TextView tvTableSelect, tvPickupName;
 
-    //Buttons
+    // Buttons
     Button btnPay;
 
-    //Order to be used
+    // Order to be used
     Order order = new Order();
 
-    //Order total price
+    // Order total price
     double totalPrice = 0;
 
+    // Requisites for PayPal
     private int payPalRequestCode = 12;
 
     private static PayPalConfiguration payPalConfig = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX).clientId(PayPalClientIDConfig.paypalId);
@@ -61,44 +65,44 @@ public class PayActivity extends AppCompatActivity {
         i.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, payPalConfig);
         startService(i);
 
-        //Get the method from the method holder
+        // Get the method from the method holder
         final ArrayList<Integer> methodHolder = MethodHolder.getInstance().method;
 
-        //Get the order from the Order data holder
+        // Get the order from the Order data holder
         final ArrayList<ItemOrder> orderHeld = OrderHolder.getInstance().order;
 
-        //Pair Spinner
+        // Pair Spinner
         spTableChoice = (Spinner) findViewById(R.id.spTableSelection);
 
-        //Pair text views
+        // Pair text views
         tvTableSelect = (TextView) findViewById(R.id.tvTableSelect);
         tvPickupName = (TextView) findViewById(R.id.tvPickupName);
 
-        //Pair edit texts
+        // Pair edit texts
         etPickupName = (EditText) findViewById(R.id.etPickupName);
 
-        //Pair Buttons
+        // Pair Buttons
         btnPay = (Button) findViewById(R.id.btnPay);
 
-        //Set adapter for spinner
+        // Set adapter for spinner
         ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this, R.array.tables_array, android.R.layout.simple_spinner_item);
         spTableChoice.setAdapter(spinnerAdapter);
 
-        //Find out what the method is, if it is 0 then ask them which table they are at
-        //Otherwise, ask for their name and other requirements
+        // Find out what the method is, if it is 0 then ask them which table they are at
+        // Otherwise, ask for their name and other requirements
         int method = methodHolder.get(0);
 
         if(method == 0){
-            //Ordering to table, show table number drop down selection and title
+            // Ordering to table, show table number drop down selection and title
             tvTableSelect.setVisibility(View.VISIBLE);
             spTableChoice.setVisibility(View.VISIBLE);
         }else{
-            //Ordering for collection, take account name for collection name
+            // Ordering for collection, take account name for collection name
             tvPickupName.setVisibility(View.VISIBLE);
             etPickupName.setVisibility(View.VISIBLE);
         }
 
-        //Determine the total cost of the order
+        // Determine the total cost of the order
         for(ItemOrder io : orderHeld){
             totalPrice+=io.getPrice();
         }
@@ -106,10 +110,10 @@ public class PayActivity extends AppCompatActivity {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Determine the location of the order (table number or person to collect it depending on the method)
+                // Determine the location of the order (table number or person to collect it depending on the method)
                 String location = "";
                 boolean met = false;
-                if(method ==0){
+                if(method == 0){
                     location = spTableChoice.getSelectedItem().toString();
                     met = true;
                 }else if(method == 1 && !etPickupName.getText().toString().isEmpty()){
@@ -120,17 +124,17 @@ public class PayActivity extends AppCompatActivity {
                 }
 
                 if(met){
-                    //Finalise the order as an order object
+                    // Finalise the order as an order object
                     order.setDestination(location);
                     order.setOrderItems(orderHeld);
                     order.setTotalPrice(totalPrice);
 
-                    //Move to payment now
+                    // Move to payment now
                     PayPalPay(totalPrice);
                 }
 
-
             }
+
         });
 
     }
@@ -153,6 +157,7 @@ public class PayActivity extends AppCompatActivity {
         if(requestCode == payPalRequestCode){
             if(requestCode == Activity.RESULT_OK){
                 Toast.makeText(getApplicationContext(), "Payment made!", Toast.LENGTH_LONG).show();
+                addOrderDB();
             }else{
                 Toast.makeText(getApplicationContext(), "Payment unsuccessful!", Toast.LENGTH_LONG).show();
             }
@@ -164,5 +169,16 @@ public class PayActivity extends AppCompatActivity {
     protected void onDestroy() {
         stopService(new Intent(this, PayPalService.class));
         super.onDestroy();
+    }
+
+    private void addOrderDB(){
+        // Generate the order id
+        String id = UUID.randomUUID().toString();
+
+        // Get the firebase reference
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Orders").child(id);
+
+        // Update the order
+        ref.setValue(order);
     }
 }

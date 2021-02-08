@@ -42,4 +42,5 @@ dependencies {
 
     //Added libraries
     implementation 'com.github.mazenrashed:Printooth:1.2.2'
+
 }

@@ -12,9 +12,7 @@ public class ItemDB implements Serializable {
 
     public ItemDB(){}
 
-    //Getters and setters
-
-
+    // Getters and setters
     public String getName() {
         return name;
     }

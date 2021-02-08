@@ -24,16 +24,16 @@ import java.util.ArrayList;
 
 public class PrintTestActivity extends AppCompatActivity {
 
-    //Button for print and pair
+    // Button for print and pair
     Button btnPrint, btnPair;
 
-    //Printing
+    // Printing
     Printing pri;
 
-    //Edit Text
+    // Edit Text
     EditText etTextInp;
 
-    //String to be used across contexts
+    // String to be used across contexts
     String inp;
 
     @Override
@@ -41,14 +41,14 @@ public class PrintTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print_test);
 
-        //Initialise print tooth
+        // Initialise print tooth
         Printooth.INSTANCE.init(this);
 
-        //Pair the buttons
+        // Pair the buttons
         btnPrint = (Button) findViewById(R.id.btnPrint);
         btnPair = (Button) findViewById(R.id.btnPair);
 
-        //Pair the edit text
+        // Pair the edit text
         etTextInp = (EditText) findViewById(R.id.etTextInp);
 
 //        if(pri != null){
@@ -59,7 +59,7 @@ public class PrintTestActivity extends AppCompatActivity {
         btnPair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //If it is paired then unpair, else pair
+                // If it is paired then unpair, else pair
                 if(Printooth.INSTANCE.hasPairedPrinter()){
                     Printooth.INSTANCE.removeCurrentPrinter();
                 }else{
@@ -68,11 +68,11 @@ public class PrintTestActivity extends AppCompatActivity {
             }
         });
 
-        //When the print button is clicked
+        // When the print button is clicked
         btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //If there is no paired printer then pair
+                // If there is no paired printer then pair
                 if(!Printooth.INSTANCE.hasPairedPrinter()){
                     startActivityForResult(new Intent(PrintTestActivity.this, ScanningActivity.class),ScanningActivity.SCANNING_FOR_PRINTER);
                 }else{

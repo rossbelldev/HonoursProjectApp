@@ -10,12 +10,12 @@ public class ItemOrder implements Serializable {
     public double price;
     public int qty;
 
-    //Default constructor
+    // Default constructor
     public ItemOrder(){
 
     }
 
-    //Getters and setters
+    // Getters and setters
     public String getName() {
         return name;
     }

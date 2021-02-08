@@ -20,13 +20,13 @@ import com.honoursapp.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    //Buttons
+    // Buttons
     Button btnRegister;
 
-    //Edit texts
+    // Edit texts
     EditText etEmail, etPass, etPassConf;
 
-    //Firebase authentication (to be added to gradle (app): (implementation 'com.google.firebase:firebase-auth:18.0.0'))
+    // Firebase authentication (to be added to gradle (app): (implementation 'com.google.firebase:firebase-auth:18.0.0'))
     FirebaseAuth auth;
 
     @Override
@@ -34,13 +34,13 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        //Initialise the aut
+        // Initialise the aut
         auth = FirebaseAuth.getInstance();
 
-        //Pair Buttons
+        // Pair Buttons
         btnRegister = (Button) findViewById(R.id.btnRegister);
 
-        //Pair edit texts
+        // Pair edit texts
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPass = (EditText) findViewById(R.id.etPass);
         etPassConf = (EditText) findViewById(R.id.etPassConf);
@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(),"Successfully added!",Toast.LENGTH_SHORT).show();
-                    //Sign them in and send them back
+                    // Sign them in and send them back
                     signIn(email, password);
                 }else{
                     Toast.makeText(getApplicationContext(),"Error.",Toast.LENGTH_LONG).show();
@@ -119,12 +119,12 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    //Tell them that they are logged in and redirect them to the main screen
+                    // Tell them that they are logged in and redirect them to the main screen
                     Toast.makeText(getApplicationContext(), "Logged in!", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(i);
                 }else{
-                    //Inform them to try again
+                    // Inform them to try again
                     Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_LONG).show();
                 }
             }

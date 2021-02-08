@@ -19,13 +19,13 @@ import java.util.ArrayList;
 
 public class BasketActivity extends AppCompatActivity {
 
-    //Buttons
+    // Buttons
     Button btnPay;
 
-    //ListView
+    // ListView
     ListView lvOrder;
 
-    //Array Lists to be populated with the info to put on the order
+    // Array Lists to be populated with the info to put on the order
     ArrayList<String> nameAndProtein = new ArrayList<>();
     ArrayList<String> priceString = new ArrayList<>();
     ArrayList<String> qtyString = new ArrayList<>();
@@ -35,17 +35,17 @@ public class BasketActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
 
-        //Get the order from the order holder
+        // Get the order from the order holder
         final ArrayList<ItemOrder> order = OrderHolder.getInstance().order;
 
-        //Pair the buttons
+        // Pair the buttons
         btnPay = (Button) findViewById(R.id.btnPay);
 
 
-        //Pair the list view
+        // Pair the list view
         lvOrder = (ListView) findViewById(R.id.lvOrder);
 
-        //Custom back button to make the user go back to the order screen
+        // Custom back button to make the user go back to the order screen
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -57,21 +57,21 @@ public class BasketActivity extends AppCompatActivity {
 
         getOnBackPressedDispatcher().addCallback(this,callback);
 
-        //Display the information (if the order is not null)
+        // Display the information (if the order is not null)
         if(order != null){
 
-            //Prepare the information for the adapter
+            // Prepare the information for the adapter
             for(int i = 0; i < order.size(); i++){
 
                 String name = order.get(i).getName();
                 String protein = order.get(i).getProtein();
                 String qty = String.valueOf(order.get(i).getQty());
-                //If there is a protein
+                // If there is a protein
                 if(protein != null){
                     String proteinAndName = protein + " " + name;
                     nameAndProtein.add(proteinAndName);
                 }else{
-                    //There is no protein
+                    // There is no protein
                     nameAndProtein.add(name);
                 }
 

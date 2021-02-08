@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Create buttons to be used across program
+    // Create buttons to be used across program
     Button btnBurger, btnOrderToTable, btnOrderForCollection, btnBookTable;
 
-    //Firebase
+    // Firebase
     FirebaseAuth auth;
 
     @Override
@@ -27,27 +27,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Initialise Buttons
+        // Initialise Buttons
         btnBurger = (Button) findViewById(R.id.btnBurger);
         btnOrderToTable = (Button) findViewById(R.id.btnOrderToTable);
         btnOrderForCollection = (Button) findViewById(R.id.btnOrderForCollection);
         btnBookTable = (Button) findViewById(R.id.btnBookTable);
 
-        //Initialise the firebase authentication
+        // Initialise the firebase authentication
         auth = FirebaseAuth.getInstance();
 
-        //Get the boolean for the method
+        // Get the boolean for the method
         ArrayList<Integer> method = MethodHolder.getInstance().method;
 
-        //Check to see if the user is signed in
+        // Check to see if the user is signed in
         FirebaseUser u = auth.getCurrentUser();
         if(u == null){
-            //The user is not signed in, or does not have and account, redirect them to sign up page
+            // The user is not signed in, or does not have and account, redirect them to sign up page
             Intent i = new Intent(getApplicationContext(), RegisterSignInActivity.class);
             startActivity(i);
         }
 
-        //On click listeners for buttons
+        // On click listeners for buttons
         btnOrderToTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

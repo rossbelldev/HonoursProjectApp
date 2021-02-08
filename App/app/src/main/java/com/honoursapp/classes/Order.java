@@ -11,12 +11,12 @@ public class Order {
     public User user;
     public double totalPrice;
 
-    //Default Constructor
+    // Default Constructor
     public Order(){
 
     }
 
-    //getters and setters
+    // Getters and setters
     public ArrayList<ItemOrder> getOrderItems(){
         return orderItems;
     }

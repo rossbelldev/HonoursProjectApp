@@ -30,19 +30,19 @@ import java.util.Arrays;
 
 public class BrowseItemsActivity extends AppCompatActivity {
 
-    //Buttons
+    // Buttons
     Button btnBurgerBar, btnProceed;
 
-    //List View
+    // List View
     ListView lvItems;
 
-    //String for the extras
+    // String for the extras
     String category;
 
-    //Text Views
+    // Text Views
     TextView tvCat;
 
-    //Array list for the list of items to be displayed
+    // Array list for the list of items to be displayed
     ArrayList<String> toDisplay = new ArrayList<>();
     ArrayList<ItemDB> list = new ArrayList<>();
     ArrayList<String> drinks = new ArrayList<>(Arrays.asList("Soft Drinks","Beer","Wine","Cider","Hot Drinks","Vodka","Rum","Whisky","Liqueurs"));
@@ -52,27 +52,27 @@ public class BrowseItemsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browse_items);
 
-        //Get the extras to work out what to display
+        // Get the extras to work out what to display
         Bundle extras = getIntent().getExtras();
 
         if(extras != null){
             category = extras.getString("category");
         }
 
-        //Buttons
+        // Buttons
         btnBurgerBar = (Button) findViewById(R.id.btnBurgerBar);
         btnProceed = (Button) findViewById(R.id.btnProceed);
 
-        //List view
+        // List view
         lvItems = (ListView) findViewById(R.id.lvItems);
 
-        //Text Views
+        // Text Views
         tvCat = (TextView) findViewById(R.id.tvCat);
 
-        //Update the title of the page
+        // Update the title of the page
         tvCat.setText(category);
 
-        //Custom back button to make the user go back to the order screen
+        // Custom back button to make the user go back to the order screen
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
@@ -84,11 +84,11 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
         getOnBackPressedDispatcher().addCallback(this,callback);
 
-        //Adapter
+        // Adapter
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, toDisplay);
         lvItems.setAdapter(adapter);
 
-        //On click for the basket button
+        // On click for the basket button
         btnProceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,36 +97,36 @@ public class BrowseItemsActivity extends AppCompatActivity {
             }
         });
 
-        //Check to see if sub categories are needed
+        // Check to see if sub categories are needed
         if(category.equals("Drinks")){
-            //Sub categories will be retrieved from the other branch of the database (drinks branch)
-            //Clear the todisplay and re-populate it
+            // Sub categories will be retrieved from the other branch of the database (drinks branch)
+            // Clear the todisplay and re-populate it
             toDisplay.clear();
             toDisplay.addAll(drinks);
             adapter.notifyDataSetChanged();
 
-            //Get which sub-category is clicked
+            // Get which sub-category is clicked
             lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    //Update the values of "Soft Drinks" and "Hot Drinks" to be compatible with the database
+                    // Update the values of "Soft Drinks" and "Hot Drinks" to be compatible with the database
                     drinks.set(0,"SoftDrinks");
                     drinks.set(4,"HotDrinks");
 
-                    //Get the database child for the slot i which is selected
+                    // Get the database child for the slot i which is selected
                     DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("1_wnfdbNOIqLl_-gC_sE0PtXb2oXo1-g0i8ldwXqgRkI").child(drinks.get(i));
 
                     myRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            //Clear the todisplay and re-populate it
+                            // Clear the todisplay and re-populate it
                             toDisplay.clear();
                             for(DataSnapshot ds : snapshot.getChildren()){
                                 ItemDB itmDb = ds.getValue(ItemDB.class);
                                 list.add(itmDb);
                                 toDisplay.add(itmDb.getName());
                             }
-                            //Change what is displayed
+                            // Change what is displayed
                             adapter.notifyDataSetChanged();
                         }
 
@@ -136,7 +136,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
                         }
                     });
 
-                    //Onclick for the items (drinks or otherwise)
+                    // Onclick for the items (drinks or otherwise)
                     lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -149,20 +149,20 @@ public class BrowseItemsActivity extends AppCompatActivity {
             });
 
         }else{
-            //Else the fetch will execute
+            // Else the fetch will execute
             DatabaseReference myRef = FirebaseDatabase.getInstance().getReference().child("1OcAx3H04_kHY_cgU-Z8pAyuTEDuVNCit5Z9ohFt2L-4").child(category);
 
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    //Clear the todisplay and re-populate it
+                    // Clear the todisplay and re-populate it
                     toDisplay.clear();
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
                         ItemDB itmDb = ds.getValue(ItemDB.class);
                         list.add(itmDb);
                         toDisplay.add(itmDb.getName());
                     }
-                    //Change what the user sees depending on what they clicked
+                    // Change what the user sees depending on what they clicked
                     adapter.notifyDataSetChanged();
                 }
 
@@ -173,7 +173,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
 
             });
 
-            //Onclick for the items (drinks or otherwise)
+            // Onclick for the items (drinks or otherwise)
             lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
