@@ -174,7 +174,8 @@ public class PayActivity extends AppCompatActivity {
 
     private void addOrderDB(){
         // Format the order so that the items are shown in the right way
-        OrganiseOrder(order);
+        OrganiseOrder organiser = new OrganiseOrder();
+        Order finalisedOrder = organiser.Organise(order);
         // Generate the order id
         String id = UUID.randomUUID().toString();
 
@@ -182,6 +183,6 @@ public class PayActivity extends AppCompatActivity {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Orders").child(id);
 
         // Update the order
-        ref.setValue(order);
+        ref.setValue(finalisedOrder);
     }
 }

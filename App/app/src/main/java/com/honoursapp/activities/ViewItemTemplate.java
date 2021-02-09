@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.honoursapp.R;
+import com.honoursapp.calculations.OrganiseOrder;
 import com.honoursapp.calculations.SwapIDBtoItem;
 import com.honoursapp.classes.holders.OrderHolder;
 import com.honoursapp.classes.adapters.CustomArrayAdapterProteins;
@@ -22,6 +23,7 @@ import com.honoursapp.classes.items.ItemOrder;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class ViewItemTemplate extends AppCompatActivity {
@@ -220,6 +222,12 @@ public class ViewItemTemplate extends AppCompatActivity {
                         // The item has not yet been added to the order, can be added normally
                         iOrder.setName(item.getName());
                         iOrder.setQty(1);
+
+                        // Format the category for the order, i.e. make the category mains, drinks, sides etc
+                        OrganiseOrder org = new OrganiseOrder();
+                        String formattedCat = org.formatCat(category);
+
+                        iOrder.setCat(formattedCat);
 
                         // If there is only one possible price, get that
                         if(!priceSet){
