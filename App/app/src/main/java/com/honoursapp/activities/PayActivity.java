@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.honoursapp.R;
+import com.honoursapp.calculations.OrganiseOrder;
 import com.honoursapp.classes.Order;
 import com.honoursapp.classes.PayPalClientIDConfig;
 import com.honoursapp.classes.holders.MethodHolder;
@@ -172,6 +173,8 @@ public class PayActivity extends AppCompatActivity {
     }
 
     private void addOrderDB(){
+        // Format the order so that the items are shown in the right way
+        OrganiseOrder(order);
         // Generate the order id
         String id = UUID.randomUUID().toString();
 
