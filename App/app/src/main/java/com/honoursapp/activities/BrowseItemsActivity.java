@@ -20,10 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.honoursapp.R;
-import com.honoursapp.classes.Order;
 import com.honoursapp.classes.items.ItemDB;
-import com.honoursapp.classes.items.ItemDBCat;
-import com.honoursapp.classes.items.ItemOrder;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -130,8 +130,10 @@ public class PayActivity extends AppCompatActivity {
                     order.setOrderItems(orderHeld);
                     order.setTotalPrice(totalPrice);
 
+                    addOrderDB();
+
                     // Move to payment now
-                    PayPalPay(totalPrice);
+                    //PayPalPay(totalPrice);
                 }
 
             }
