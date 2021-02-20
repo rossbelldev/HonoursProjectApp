@@ -1,16 +1,24 @@
 const functions = require("firebase-functions");
+const admin = require("firebase-admin");
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+// Initialise the app
+admin.initializeApp();
 
-exports.orderPlaced = functions.database.ref("Orders/{OrderID}/")
+// Function for notifying the admins that an order has been placed
+exports.orderPlaced = functions.database.ref("Orders/{orderID}/")
     .onCreate((snapshot, context) => {
-        console.log("There is a new order");
+        const id = "String(context.params.orderId)";
+        console.log("There is a new order with ID: " + id);
+
+        const payload = {
+            notification: {
+                title: id,
+            },
+        };
+
+        return admin.messaging().sendToTopic("NewOrder", payload);
     });
 
-// Leave a blank line
+// Function for order updated
+
+// Leave a blank line below or it will not work!!
