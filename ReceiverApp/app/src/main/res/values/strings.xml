@@ -1,3 +1,10 @@
 <resources>
+
     <string name="app_name">ReceiverApp</string>
+
+    <!-- activity_requested_orders -->
+    <string name="refresh">Refresh</string>
+    <string name="req">Requested Orders</string>
+
+
 </resources>

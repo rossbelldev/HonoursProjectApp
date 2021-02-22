@@ -7,7 +7,7 @@ admin.initializeApp();
 // Function for notifying the admins that an order has been placed
 exports.orderPlaced = functions.database.ref("Orders/{orderID}/")
     .onCreate((snapshot, context) => {
-        const id = "String(context.params.orderId)";
+        const id = "ID123";
         console.log("There is a new order with ID: " + id);
 
         const payload = {
