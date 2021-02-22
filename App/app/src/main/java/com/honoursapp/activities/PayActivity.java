@@ -131,6 +131,7 @@ public class PayActivity extends AppCompatActivity {
                     order.setTotalPrice(totalPrice);
 
                     addOrderDB();
+                    Toast.makeText(getApplicationContext(), "Placed!", Toast.LENGTH_SHORT).show();
 
                     // Move to payment now
                     //PayPalPay(totalPrice);
@@ -180,6 +181,8 @@ public class PayActivity extends AppCompatActivity {
         Order finalisedOrder = organiser.Organise(order);
         // Generate the order id
         String id = UUID.randomUUID().toString();
+        // Set the name of the order to the generated id
+        finalisedOrder.setName(id);
 
         // Get the firebase reference
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Orders").child(id);
