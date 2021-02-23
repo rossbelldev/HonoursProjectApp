@@ -7,4 +7,11 @@
     <string name="req">Requested Orders</string>
 
 
+    <!-- activity_view_order_template -->
+    <string name="id">Order ID:</string>
+    <string name="dest">Destination/Pickup Name:</string>
+    <string name="itms">Order Items:</string>
+    <string name="rej">Reject</string>
+    <string name="accept">Accept</string>
+
 </resources>

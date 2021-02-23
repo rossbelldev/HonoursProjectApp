@@ -1,8 +1,9 @@
 package com.receiverapp.activities.classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Order {
+public class Order implements Serializable {
 
     public String name;
     ArrayList<ItemOrder> orderItems;

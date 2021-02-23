@@ -3,8 +3,10 @@ package com.receiverapp.activities.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -35,6 +37,7 @@ public class RequestedOrdersActivity extends AppCompatActivity {
 
     // Array list for items to be displayed
     ArrayList<String> toDisplay = new ArrayList<>();
+    ArrayList<Order> orderList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,16 @@ public class RequestedOrdersActivity extends AppCompatActivity {
             }
         });
 
+        // Onclick listener for the list view
+        lvOrdersRequested.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(view.getContext(), ViewOrderTemplate.class);
+                intent.putExtra("order", orderList.get(i));
+                startActivity(intent);
+            }
+        });
+
     }
 
     // Function to retrieve the orders and display them in a list view
@@ -84,6 +97,8 @@ public class RequestedOrdersActivity extends AppCompatActivity {
                 for(DataSnapshot ds : snapshot.getChildren()){
                     Order order = ds.getValue(Order.class);
                     toDisplay.add(order.getName());
+                    // Add the order to a list of orders to be used by the list view
+                    orderList.add(order);
                 }
 
                 // Update what is displayed on the array adapter
