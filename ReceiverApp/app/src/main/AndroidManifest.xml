@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.receiverapp">
+
+    <!-- Permissons for printing -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -8,8 +14,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ReceiverApp">
-        <activity android:name=".activities.activities.ViewOrderTemplate"></activity>
+        android:theme="@style/Theme.ReceiverApp"
+        tools:replace="android:theme">
+        <activity android:name=".activities.activities.PrintActivity"/>
+        <activity android:name=".activities.activities.ViewOrderTemplateActivity" />
         <activity android:name=".activities.activities.RequestedBookingsActivity" />
         <activity android:name=".activities.activities.RequestedOrdersActivity" />
         <activity android:name=".activities.activities.MainActivity">

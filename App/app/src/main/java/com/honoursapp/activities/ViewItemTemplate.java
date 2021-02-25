@@ -84,6 +84,7 @@ public class ViewItemTemplate extends AppCompatActivity {
             category = extras.getString("category");
         }
 
+
         // Send it off to be swapped to a more usable format
         SwapIDBtoItem change = new SwapIDBtoItem();
         final Item item = change.swap(itemDB);
@@ -265,8 +266,8 @@ public class ViewItemTemplate extends AppCompatActivity {
 
     private void returnUser(){
         // Return the user back to the previous screen they were on
-        Intent i = new Intent(getApplicationContext(), BrowseItemsActivity.class);
-        i.putExtra("category",category);
+        Intent i = new Intent(getApplicationContext(), OrderActivity.class);
+        //i.putExtra("category",category);
         startActivity(i);
     }
 

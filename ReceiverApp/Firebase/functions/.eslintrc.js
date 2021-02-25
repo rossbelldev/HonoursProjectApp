@@ -13,5 +13,6 @@ module.exports = {
     indent: [1, "tab"],
     "no-tabs": 0,
     "quote-props": [2, "as-needed"],
+    "linebreak-style": 0,
   },
 };

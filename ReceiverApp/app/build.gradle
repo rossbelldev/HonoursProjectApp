@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.receiverapp"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -40,6 +40,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:20.0.1'
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-analytics'
+    // Print tooth
+    implementation 'com.github.mazenrashed:Printooth:1.2.2'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
 
 }

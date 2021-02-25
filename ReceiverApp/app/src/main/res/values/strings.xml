@@ -14,4 +14,9 @@
     <string name="rej">Reject</string>
     <string name="accept">Accept</string>
 
+    <!-- activity_print -->
+    <string name="printPrev">Print Preview:</string>
+    <string name="print">Print</string>
+    <string name="pair">Pair with printer</string>
+
 </resources>

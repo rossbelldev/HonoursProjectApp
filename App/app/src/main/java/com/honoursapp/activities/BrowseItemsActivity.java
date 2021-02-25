@@ -117,7 +117,7 @@ public class BrowseItemsActivity extends AppCompatActivity {
                     myRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            // Clear the todisplay and re-populate it
+                            // Clear the toDisplay and re-populate it
                             toDisplay.clear();
                             for(DataSnapshot ds : snapshot.getChildren()){
                                 ItemDB itmDb = ds.getValue(ItemDB.class);
@@ -138,8 +138,12 @@ public class BrowseItemsActivity extends AppCompatActivity {
                     lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            // Change the category
+                            category = drinks.get(i);
+
                             Intent intent = new Intent(view.getContext(), ViewItemTemplate.class);
                             intent.putExtra("itemDb", list.get(i));
+                            intent.putExtra("category", category);
                             startActivity(intent);
                         }
                     });

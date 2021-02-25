@@ -68,7 +68,7 @@ public class RequestedOrdersActivity extends AppCompatActivity {
         lvOrdersRequested.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(view.getContext(), ViewOrderTemplate.class);
+                Intent intent = new Intent(view.getContext(), ViewOrderTemplateActivity.class);
                 intent.putExtra("order", orderList.get(i));
                 startActivity(intent);
             }
@@ -96,7 +96,7 @@ public class RequestedOrdersActivity extends AppCompatActivity {
                 // For each data snapshot retrieved
                 for(DataSnapshot ds : snapshot.getChildren()){
                     Order order = ds.getValue(Order.class);
-                    toDisplay.add(order.getName());
+                    toDisplay.add(order.getDestination());
                     // Add the order to a list of orders to be used by the list view
                     orderList.add(order);
                 }
