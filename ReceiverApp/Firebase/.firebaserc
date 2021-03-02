@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "honours-ac127"
+    "default": "honours-ac127",
+    "dev": "honours-ac127"
   }
 }

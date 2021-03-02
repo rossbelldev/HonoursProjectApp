@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.honoursapp"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -34,13 +34,16 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.6.0'
     implementation 'com.google.firebase:firebase-auth:20.0.1'
     implementation 'com.paypal.sdk:paypal-android-sdk:2.15.3'
-    //noinspection GradleCompatible
+    // noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:24.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    //Added libraries
+    // Stripe
+    implementation 'com.stripe:stripe-android:16.1.1'
+
+    // Printooth
     implementation 'com.github.mazenrashed:Printooth:1.2.2'
 
 }
