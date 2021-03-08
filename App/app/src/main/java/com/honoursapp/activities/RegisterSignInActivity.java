@@ -20,13 +20,13 @@ import com.honoursapp.R;
 
 public class RegisterSignInActivity extends AppCompatActivity {
 
-    //Edit texts
+    // Edit texts
     EditText etEmail, etPassword;
 
-    //Buttons
+    // Buttons
     Button btnRegister, btnSignIn;
 
-    //Firebase authentication (to be added to gradle (app): (implementation 'com.google.firebase:firebase-auth:18.0.0'))
+    // Firebase authentication (to be added to gradle (app): (implementation 'com.google.firebase:firebase-auth:18.0.0'))
     FirebaseAuth auth;
 
     @Override
@@ -34,14 +34,14 @@ public class RegisterSignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_sign_in);
 
-        //Initialise the aut
+        // Initialise the aut
         auth = FirebaseAuth.getInstance();
 
-        //Find the Edit texts
+        // Find the Edit texts
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPass);
 
-        //Find the buttons
+        // Find the buttons
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
 
@@ -67,25 +67,16 @@ public class RegisterSignInActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //Record the values that have been input
-                String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
-
-                if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
-                    Toast.makeText(getApplicationContext(), "Please enter details", Toast.LENGTH_LONG).show();
-                }else if(password.length() < 7){
-                    Toast.makeText(getApplicationContext(),"Enter a password which has 7 characters",Toast.LENGTH_LONG).show();
-                }else{
-                    register(email, password);
-                }
+                // Start the register activity
+                Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(i);
             }
         });
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Record the values that have been input
+                // Record the values that have been input
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
 
@@ -106,7 +97,7 @@ public class RegisterSignInActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(),"Successfully added!",Toast.LENGTH_SHORT).show();
-                    //Sign them in and send them back
+                    // Sign them in and send them back
                     signIn(email, password);
                 }else{
                     Toast.makeText(getApplicationContext(),"Error.",Toast.LENGTH_LONG).show();
@@ -122,12 +113,12 @@ public class RegisterSignInActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    //Tell them that they are logged in and redirect them to the main screen
+                    // Tell them that they are logged in and redirect them to the main screen
                     Toast.makeText(getApplicationContext(), "Logged in!", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(i);
                 }else{
-                    //Inform them to try again
+                    // Inform them to try again
                     Toast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_LONG).show();
                 }
             }

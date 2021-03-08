@@ -10,12 +10,12 @@ public class Item {
     ArrayList<Double> prices;
     String description;
 
-    //Default constructor
+    // Default constructor
     public Item(){
 
     }
 
-    //Getters and setters
+    // Getters and setters
     public String getName(){
         return name;
     }

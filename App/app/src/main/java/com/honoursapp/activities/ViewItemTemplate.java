@@ -1,6 +1,5 @@
 package com.honoursapp.activities;
 
-import androidx.activity.OnBackPressedCallback;
 import  androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,8 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.honoursapp.R;
+import com.honoursapp.calculations.OrganiseOrder;
 import com.honoursapp.calculations.SwapIDBtoItem;
-import com.honoursapp.classes.OrderHolder;
+import com.honoursapp.classes.holders.OrderHolder;
 import com.honoursapp.classes.adapters.CustomArrayAdapterProteins;
 import com.honoursapp.classes.items.Item;
 import com.honoursapp.classes.items.ItemDB;
@@ -23,34 +23,35 @@ import com.honoursapp.classes.items.ItemOrder;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class ViewItemTemplate extends AppCompatActivity {
 
 
-    //Buttons
+    // Buttons
     Button btnBurgerBar, btnAdd, btnBasket;
 
-    //Text Views
+    // Text Views
     TextView tvTitle, tvDesc, tvAllergens, tvProteins;
 
-    //List View
+    // List View
     ListView lvProteins;
 
-    //ItemDB to be used across contexts
+    // ItemDB to be used across contexts
     ItemDB itemDB = new ItemDB();
 
-    //Category String to be passed back on item selection
+    // Category String to be passed back on item selection
     String category;
 
-    //Array list proteins
+    // Array list proteins
     ArrayList<String> proteins = new ArrayList<>();
     ArrayList<String> pricesString = new ArrayList<>();
 
-    //Item Order initialised
+    // Item Order initialised
     ItemOrder iOrder = new ItemOrder();
 
-    //Price set boolean
+    // Price set boolean
     boolean priceSet = false;
 
     @Override
@@ -58,24 +59,24 @@ public class ViewItemTemplate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_item_template);
 
-        //Get the order from the Order data holder
+        // Get the order from the Order data holder
         final ArrayList<ItemOrder> order = OrderHolder.getInstance().order;
 
-        //Pair all buttons
+        // Pair all buttons
         btnBurgerBar = (Button) findViewById(R.id.btnBurgerBar);
         btnBasket = (Button) findViewById(R.id.btnBasket);
         btnAdd = (Button) findViewById(R.id.btnAdd);
 
-        //Pair all text views
+        // Pair all text views
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvDesc = (TextView) findViewById(R.id.tvDesc);
         tvAllergens = (TextView) findViewById(R.id.tvAllergens);
         tvProteins = (TextView) findViewById(R.id.tvProteins);
 
-        //Pair list view
+        // Pair list view
         lvProteins = (ListView) findViewById(R.id.lvProtein);
 
-        //Get the passed object
+        // Get the passed object
         Bundle extras = getIntent().getExtras();
 
         if(extras != null){
@@ -83,11 +84,12 @@ public class ViewItemTemplate extends AppCompatActivity {
             category = extras.getString("category");
         }
 
-        //Send it off to be swapped to a more usable format
+
+        // Send it off to be swapped to a more usable format
         SwapIDBtoItem change = new SwapIDBtoItem();
         final Item item = change.swap(itemDB);
 
-        //React to the information which it returns
+        // React to the information which it returns
         tvTitle.setText(item.getName());
         tvDesc.setText(item.getDescription());
         tvAllergens.setText(item.getAllergens());
@@ -107,7 +109,7 @@ public class ViewItemTemplate extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    //Uncheck all other items, then check the one that needs to be checked
+                    // Uncheck all other items, then check the one that needs to be checked
                     int len = adapterView.getLastVisiblePosition() - adapterView.getFirstVisiblePosition();
 
                     if(len >= 2){
@@ -127,7 +129,7 @@ public class ViewItemTemplate extends AppCompatActivity {
                     RadioButton r = (RadioButton) view.findViewById(R.id.rbSelect);
                     r.setChecked(true);
 
-                    //Set the item attributes
+                    // Set the item attributes
                     iOrder.setProtein(proteins.get(i));
                     iOrder.setPrice(item.getPrices().get(i));
                     priceSet = true;
@@ -138,7 +140,7 @@ public class ViewItemTemplate extends AppCompatActivity {
             tvProteins.setVisibility(View.GONE);
         }
 
-        //Onclick listener for the add button
+        // Onclick listener for the add button
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,25 +148,25 @@ public class ViewItemTemplate extends AppCompatActivity {
                 boolean add = false;
                 boolean found = false;
 
-                //Formatting for the price to round and display properly
+                // Formatting for the price to round and display properly
                 DecimalFormat priceFormat = new DecimalFormat("#.##");
 
-                //Set the name to be checked
+                // Set the name to be checked
                 iOrder.setName(item.getName());
 
                 if(order.size() > 0){
-                    //The order already has items on it
-                    //Check to see if it contains the item which is trying to be added. (for(ItemOrder io : order){} loop does not work here for some reason)
+                    // The order already has items on it
+                    // Check to see if it contains the item which is trying to be added. (for(ItemOrder io : order){} loop does not work here for some reason)
                     for(int i = 0; i < order.size(); i++){
                         ItemOrder io = order.get(i);
-                        //For each ItemOrder in the order array list
+                        // For each ItemOrder in the order array list
                         if(io.getName().equals(iOrder.getName())){
-                            //The item name is the same, check to see if it has a protein
+                            // The item name is the same, check to see if it has a protein
                             int qty = io.getQty();
                             if(iOrder.getProtein() != null){
-                                //The item being added has a protein, check it too
+                                // The item being added has a protein, check it too
                                 if(io.getProtein().equals(iOrder.getProtein())){
-                                    //The protein is the same, increase qty
+                                    // The protein is the same, increase qty
                                     qty++;
                                     io.setQty(qty);
 
@@ -182,7 +184,7 @@ public class ViewItemTemplate extends AppCompatActivity {
                                 found = true;
 
                             }else{
-                                //The item being added does not have a protein, and the name is the same, increase qty
+                                // The item being added does not have a protein, and the name is the same, increase qty
                                 found = true;
 
                                 qty++;
@@ -204,25 +206,31 @@ public class ViewItemTemplate extends AppCompatActivity {
                     }
 
                     if(!found){
-                        //The item has not been found on the whole list, therefore add it.
+                        // The item has not been found on the whole list, therefore add it.
                         add = true;
                     }
 
                 }else{
-                    //The item being added is the first item on the order, add it
+                    // The item being added is the first item on the order, add it
                     add = true;
                 }
 
                 if(add){
-                    //Check that there is a protein selected (if it is needed)
+                    // Check that there is a protein selected (if it is needed)
                     if(iOrder.getProtein() == null && item.getProteins().size() > 1){
                         Toast.makeText(ViewItemTemplate.this, "Please choose a protein!", Toast.LENGTH_SHORT).show();
                     }else{
-                        //The item has not yet been added to the order, can be added normally
+                        // The item has not yet been added to the order, can be added normally
                         iOrder.setName(item.getName());
                         iOrder.setQty(1);
 
-                        //If there is only one possible price, get that
+                        // Format the category for the order, i.e. make the category mains, drinks, sides etc
+                        OrganiseOrder org = new OrganiseOrder();
+                        String formattedCat = org.formatCat(category);
+
+                        iOrder.setCat(formattedCat);
+
+                        // If there is only one possible price, get that
                         if(!priceSet){
                             iOrder.setPrice(item.getPrices().get(0));
                             order.add(iOrder);
@@ -244,7 +252,7 @@ public class ViewItemTemplate extends AppCompatActivity {
 
         });
 
-        //Onclick listener for the basket button
+        // Onclick listener for the basket button
         btnBasket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -257,9 +265,9 @@ public class ViewItemTemplate extends AppCompatActivity {
     }
 
     private void returnUser(){
-        //Return the user back to the previous screen they were on
-        Intent i = new Intent(getApplicationContext(), BrowseItemsActivity.class);
-        i.putExtra("category",category);
+        // Return the user back to the previous screen they were on
+        Intent i = new Intent(getApplicationContext(), OrderActivity.class);
+        //i.putExtra("category",category);
         startActivity(i);
     }
 

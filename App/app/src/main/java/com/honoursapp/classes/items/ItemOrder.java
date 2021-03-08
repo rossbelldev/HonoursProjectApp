@@ -6,16 +6,17 @@ public class ItemOrder implements Serializable {
 
     public String name;
     public String protein;
+    String cat;
     public String cookingInstructions;
     public double price;
     public int qty;
 
-    //Default constructor
+    // Default constructor
     public ItemOrder(){
 
     }
 
-    //Getters and setters
+    // Getters and setters
     public String getName() {
         return name;
     }
@@ -30,6 +31,14 @@ public class ItemOrder implements Serializable {
 
     public void setProtein(String protein) {
         this.protein = protein;
+    }
+
+    public String getCat() {
+        return cat;
+    }
+
+    public void setCat(String cat) {
+        this.cat = cat;
     }
 
     public String getCookingInstructions() {

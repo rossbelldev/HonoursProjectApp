@@ -1,4 +1,4 @@
-package com.honoursapp.classes;
+package com.honoursapp.classes.holders;
 
 import com.honoursapp.classes.items.ItemOrder;
 

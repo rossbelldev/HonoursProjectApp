@@ -4,14 +4,13 @@ public class User {
 
     String name;
     String email;
-    String pass;
 
-    //Default Constructor
+    // Default Constructor
     public User(){
 
     }
     
-    //Getters and setters 
+    // Getters and setters
     public String getName() {
         return name;
     }
@@ -28,11 +27,4 @@ public class User {
         this.email = email;
     }
 
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
 }

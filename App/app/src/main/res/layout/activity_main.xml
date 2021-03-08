@@ -80,16 +80,6 @@
                 android:background="@drawable/rounded_corners"
                 android:textColor="@color/mainWhite"/>
 
-            <Button
-                android:id="@+id/btnCheckSignIn"
-                android:text="Check Sign in"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/rounded_corners"
-                android:textColor="@color/mainWhite"/>
-
         </LinearLayout>
 
     </LinearLayout>

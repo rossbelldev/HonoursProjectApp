@@ -6,16 +6,26 @@ import java.util.ArrayList;
 
 public class Order {
 
+    public String name;
     ArrayList<ItemOrder> orderItems;
     public String destination;
     public User user;
+    public double totalPrice;
 
-    //Default Constructor
+    // Default Constructor
     public Order(){
 
     }
 
-    //getters and setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Getters and setters
     public ArrayList<ItemOrder> getOrderItems(){
         return orderItems;
     }
@@ -38,5 +48,13 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }
