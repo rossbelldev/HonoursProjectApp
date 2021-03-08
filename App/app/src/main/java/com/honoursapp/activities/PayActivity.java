@@ -133,6 +133,11 @@ public class PayActivity extends AppCompatActivity {
                     addOrderDB();
                     Toast.makeText(getApplicationContext(), "Placed!", Toast.LENGTH_SHORT).show();
 
+                    // Return the user to the homepage of the app, clear their order.
+                    orderHeld.clear();
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(i);
+
                     // Move to payment now
                     //PayPalPay(totalPrice);
                 }
@@ -185,7 +190,13 @@ public class PayActivity extends AppCompatActivity {
         finalisedOrder.setName(id);
 
         // Get the firebase reference
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Orders").child(id);
+        DatabaseReference ref;
+        if(order.getDestination().equals("Bar")){
+            // Send to other database location So that notifications are differentiated
+            ref = FirebaseDatabase.getInstance().getReference().child("OrdersBar").child(id);
+        }else{
+            ref = FirebaseDatabase.getInstance().getReference().child("Orders").child(id);
+        }
 
         // Update the order
         ref.setValue(finalisedOrder);

@@ -47,6 +47,6 @@
     </string-array>
     <string name="tableArea">Table number (or bar)</string>
     <string name="pickup">Pickup Name</string>
-    <string name="payment">Pay</string>
+    <string name="payment">Place Order</string>
 
 </resources>

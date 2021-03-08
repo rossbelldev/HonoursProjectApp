@@ -39,10 +39,20 @@ public class RequestedOrdersActivity extends AppCompatActivity {
     ArrayList<String> toDisplay = new ArrayList<>();
     ArrayList<Order> orderList = new ArrayList<>();
 
+    // The order path
+    String path;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_requested_orders);
+
+        // Retrieve the extras (in this case will be the path (Orders or OrdersBar))
+        Bundle extras = getIntent().getExtras();
+
+        if(extras != null){
+            path = extras.getString("path");
+        }
 
         // Pair the textViews
         tvTitle = (TextView) findViewById(R.id.tvTitle);
@@ -54,13 +64,13 @@ public class RequestedOrdersActivity extends AppCompatActivity {
         btnRefresh = (Button) findViewById(R.id.btnRefresh);
 
         // Get the latest orders
-        getRequestedOrders();
+        getRequestedOrders(path);
 
         // Refresh button on click listener
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getRequestedOrders();
+                getRequestedOrders(path);
             }
         });
 
@@ -77,14 +87,14 @@ public class RequestedOrdersActivity extends AppCompatActivity {
     }
 
     // Function to retrieve the orders and display them in a list view
-    private void getRequestedOrders(){
+    private void getRequestedOrders(String path){
 
         // Array adapter for the list view
         final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, toDisplay);
         lvOrdersRequested.setAdapter(adapter);
 
         // Database reference
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Orders");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(path);
 
         // Event listener for the reference
         ref.addValueEventListener(new ValueEventListener() {

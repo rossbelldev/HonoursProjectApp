@@ -3,11 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.receiverapp">
 
-    <!-- Permissons for printing -->
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,10 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ReceiverApp"
         tools:replace="android:theme">
-        <activity android:name=".activities.activities.PrintActivity"/>
-        <activity android:name=".activities.activities.ViewOrderTemplateActivity" />
-        <activity android:name=".activities.activities.RequestedBookingsActivity" />
-        <activity android:name=".activities.activities.RequestedOrdersActivity" />
         <activity android:name=".activities.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.activities.BarActivity" />
+        <activity android:name=".activities.activities.PrintActivity" />
+        <activity android:name=".activities.activities.ViewOrderTemplateActivity" />
+        <activity android:name=".activities.activities.RequestedBookingsActivity" />
+        <activity android:name=".activities.activities.RequestedOrdersActivity" />
+        <activity android:name=".activities.activities.RestaurantActivity"></activity>
 
         <service
             android:name=".activities.services.FirebaseMessagingService"
@@ -36,5 +33,9 @@
             </intent-filter>
         </service>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
 </manifest>

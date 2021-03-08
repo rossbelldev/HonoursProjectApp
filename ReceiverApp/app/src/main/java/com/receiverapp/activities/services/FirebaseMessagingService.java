@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
 import com.receiverapp.R;
-import com.receiverapp.activities.activities.MainActivity;
+import com.receiverapp.activities.activities.RestaurantActivity;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
@@ -55,7 +55,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     // Send notification function
     private void sendNotification(String orderId){
         // Intent for notification
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, RestaurantActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
 

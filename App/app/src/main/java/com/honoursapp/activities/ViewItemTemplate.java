@@ -1,7 +1,9 @@
 package com.honoursapp.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import  androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +25,6 @@ import com.honoursapp.classes.items.ItemOrder;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 
 public class ViewItemTemplate extends AppCompatActivity {
@@ -53,6 +54,12 @@ public class ViewItemTemplate extends AppCompatActivity {
 
     // Price set boolean
     boolean priceSet = false;
+
+    // String for mixer name
+    String mName;
+
+    // Response boolean for mixer
+    boolean drink = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,107 +152,13 @@ public class ViewItemTemplate extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                boolean add = false;
-                boolean found = false;
 
-                // Formatting for the price to round and display properly
-                DecimalFormat priceFormat = new DecimalFormat("#.##");
-
-                // Set the name to be checked
-                iOrder.setName(item.getName());
-
-                if(order.size() > 0){
-                    // The order already has items on it
-                    // Check to see if it contains the item which is trying to be added. (for(ItemOrder io : order){} loop does not work here for some reason)
-                    for(int i = 0; i < order.size(); i++){
-                        ItemOrder io = order.get(i);
-                        // For each ItemOrder in the order array list
-                        if(io.getName().equals(iOrder.getName())){
-                            // The item name is the same, check to see if it has a protein
-                            int qty = io.getQty();
-                            if(iOrder.getProtein() != null){
-                                // The item being added has a protein, check it too
-                                if(io.getProtein().equals(iOrder.getProtein())){
-                                    // The protein is the same, increase qty
-                                    qty++;
-                                    io.setQty(qty);
-
-                                    double price = iOrder.getPrice();
-                                    price = price * qty;
-                                    price = Double.parseDouble(priceFormat.format(price));
-                                    io.setPrice(price);
-
-                                    String msg = iOrder.protein + " " + iOrder.name + " qty has increased!";
-                                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-
-                                    returnUser();
-                                }
-
-                                found = true;
-
-                            }else{
-                                // The item being added does not have a protein, and the name is the same, increase qty
-                                found = true;
-
-                                qty++;
-                                io.setQty(qty);
-
-                                double price = iOrder.getPrice();
-                                price = price * qty;
-                                price = Double.parseDouble(priceFormat.format(price));
-                                io.setPrice(price);
-
-                                String msg = iOrder.name + " qty has increased!";
-                                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-
-                                returnUser();
-                            }
-
-                        }
-
-                    }
-
-                    if(!found){
-                        // The item has not been found on the whole list, therefore add it.
-                        add = true;
-                    }
-
+                if(iOrder.getProtein() != null && iOrder.getProtein().equals("Single") || iOrder.getProtein().equals("Double")){
+                    // Drinks
+                    drinksAdd(item, order);
                 }else{
-                    // The item being added is the first item on the order, add it
-                    add = true;
-                }
-
-                if(add){
-                    // Check that there is a protein selected (if it is needed)
-                    if(iOrder.getProtein() == null && item.getProteins().size() > 1){
-                        Toast.makeText(ViewItemTemplate.this, "Please choose a protein!", Toast.LENGTH_SHORT).show();
-                    }else{
-                        // The item has not yet been added to the order, can be added normally
-                        iOrder.setName(item.getName());
-                        iOrder.setQty(1);
-
-                        // Format the category for the order, i.e. make the category mains, drinks, sides etc
-                        OrganiseOrder org = new OrganiseOrder();
-                        String formattedCat = org.formatCat(category);
-
-                        iOrder.setCat(formattedCat);
-
-                        // If there is only one possible price, get that
-                        if(!priceSet){
-                            iOrder.setPrice(item.getPrices().get(0));
-                            order.add(iOrder);
-                            String msg = iOrder.name + " has been added!";
-                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-                        }else{
-                            order.add(iOrder);
-                            String msg = iOrder.protein + " " + iOrder.name + " has been added!";
-                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-
-                    returnUser();
-
+                    // Standard
+                    standardAdd(item, order, drink);
                 }
 
             }
@@ -269,6 +182,175 @@ public class ViewItemTemplate extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), OrderActivity.class);
         //i.putExtra("category",category);
         startActivity(i);
+    }
+
+    // Function to show all of the mixer options
+    private void showAlertDialogMixer(Item item, ArrayList<ItemOrder> order){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ViewItemTemplate.this);
+        alertDialog.setTitle("Mixer Choice");
+        String[] choices = {"None", "Coke", "Diet Coke", "Fanta", "Ginger Beer", "Water"};
+        // Replace above line with database grab
+        int checkedItem = 0;
+        alertDialog.setSingleChoiceItems(choices, checkedItem, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i) {
+                    case 0:
+                        mName = "";
+                        break;
+                    case 1:
+                        mName = "Coke";
+                        break;
+                    case 2:
+                        mName = "Diet Coke";
+                        break;
+                    case 3:
+                        mName = "Fanta";
+                        break;
+                    case 4:
+                        mName = "Ginger Beer";
+                        break;
+                    case 5:
+                        mName = "Water";
+                        break;
+
+                }
+            }
+        });
+
+        alertDialog.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                drink = true;
+                standardAdd(item, order, drink);
+                dialog.cancel();
+            }
+        });
+        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
+
+    }
+
+    private void drinksAdd(Item item, ArrayList<ItemOrder> order){
+        showAlertDialogMixer(item, order);
+    }
+
+    private void standardAdd(Item item, ArrayList<ItemOrder> order, Boolean drink){
+        boolean add = false;
+        boolean found = false;
+
+        // Formatting for the price to round and display properly
+        DecimalFormat priceFormat = new DecimalFormat("#.##");
+
+        // Set the name to be checked
+        iOrder.setName(item.getName());
+
+        if(order.size() > 0){
+            // The order already has items on it
+            // Check to see if it contains the item which is trying to be added. (for(ItemOrder io : order){} loop does not work here for some reason)
+            for(int i = 0; i < order.size(); i++){
+                ItemOrder io = order.get(i);
+                // For each ItemOrder in the order array list
+                if(io.getName().equals(iOrder.getName())){
+                    // The item name is the same, check to see if it has a protein
+                    int qty = io.getQty();
+                    if(iOrder.getProtein() != null){
+                        // The item being added has a protein, check it too
+                        if(io.getProtein().equals(iOrder.getProtein())){
+                            // The protein is the same, increase qty
+                            qty++;
+                            io.setQty(qty);
+
+                            double price = iOrder.getPrice();
+                            price = price * qty;
+                            price = Double.parseDouble(priceFormat.format(price));
+                            io.setPrice(price);
+
+                            String msg = iOrder.protein + " " + iOrder.name + " qty has increased!";
+                            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+                            returnUser();
+                        }
+
+                        found = true;
+
+                    }else{
+                        // The item being added does not have a protein, and the name is the same, increase qty
+                        found = true;
+
+                        qty++;
+                        io.setQty(qty);
+
+                        double price = iOrder.getPrice();
+                        price = price * qty;
+                        price = Double.parseDouble(priceFormat.format(price));
+                        io.setPrice(price);
+
+                        String msg = iOrder.name + " qty has increased!";
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+                        returnUser();
+                    }
+
+                }
+
+            }
+
+            if(!found){
+                // The item has not been found on the whole list, therefore add it.
+                add = true;
+            }
+
+        }else{
+            // The item being added is the first item on the order, add it
+            add = true;
+        }
+
+        if(add){
+            // Check that there is a protein selected (if it is needed)
+            if(iOrder.getProtein() == null && item.getProteins().size() > 1){
+                Toast.makeText(ViewItemTemplate.this, "Please choose a protein!", Toast.LENGTH_SHORT).show();
+            }else{
+
+                // The item has not yet been added to the order, can be added normally
+                // If the item is a drink, append the mixer to the name
+                if(drink){
+                    iOrder.setName(item.getName() + " and " + mName);
+                }else{
+                    iOrder.setName(item.getName());
+                }
+                iOrder.setQty(1);
+
+                // Format the category for the order, i.e. make the category mains, drinks, sides etc
+                OrganiseOrder org = new OrganiseOrder();
+                String formattedCat = org.formatCat(category);
+
+                iOrder.setCat(formattedCat);
+
+                // If there is only one possible price, get that
+                if(!priceSet){
+                    iOrder.setPrice(item.getPrices().get(0));
+                    order.add(iOrder);
+                    String msg = iOrder.name + " has been added!";
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                }else{
+                    order.add(iOrder);
+                    String msg = iOrder.protein + " " + iOrder.name + " has been added!";
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            returnUser();
+
+        }
     }
 
 }

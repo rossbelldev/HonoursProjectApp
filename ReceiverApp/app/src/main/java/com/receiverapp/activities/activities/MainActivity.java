@@ -12,8 +12,8 @@ import com.receiverapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Buttons
-    Button btnOrderReq, btnBookingReq;
+    // Buttons
+    Button btnBar, btnRestaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,29 +21,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Pair the buttons
-        btnBookingReq = (Button) findViewById(R.id.btnBookingsReq);
-        btnOrderReq = (Button) findViewById(R.id.btnOrdersReq);
+        btnBar = (Button) findViewById(R.id.btnBar);
+        btnRestaurant = (Button) findViewById(R.id.btnRestaurant);
 
-        // Detect changes when anything is added to this node
-        FirebaseMessaging.getInstance().subscribeToTopic("NewOrder");
-
-        // Onclick listener for btnBookingsReq
-        btnBookingReq.setOnClickListener(new View.OnClickListener() {
+        // Onclick for btn Bar
+        btnBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), RequestedBookingsActivity.class);
+                Intent i = new Intent(getApplicationContext(), BarActivity.class);
                 startActivity(i);
             }
         });
 
-        // Onclick listener for btnOrdersReq
-        btnOrderReq.setOnClickListener(new View.OnClickListener() {
+        btnRestaurant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), RequestedOrdersActivity.class);
+                Intent i = new Intent(getApplicationContext(), RestaurantActivity.class);
                 startActivity(i);
             }
         });
+
+        // Unsubscribe from all
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("NewOrderRest");
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("NewOrderBar");
 
     }
 }

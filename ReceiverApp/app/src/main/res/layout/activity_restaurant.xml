@@ -4,28 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.activities.MainActivity">
+    tools:context=".activities.activities.RestaurantActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp">
 
         <Button
-            android:id="@+id/btnRestaurant"
+            android:id="@+id/btnOrdersReq"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Restaurant"/>
+            android:layout_marginTop="20dp"
+            android:text="Requested Orders"/>
 
         <Button
-            android:id="@+id/btnBar"
+            android:id="@+id/btnBookingsReq"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bar"/>
+            android:layout_marginTop="20dp"
+            android:text="Requested Bookings"/>
 
     </LinearLayout>
 

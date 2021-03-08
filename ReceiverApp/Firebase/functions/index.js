@@ -8,7 +8,7 @@ admin.initializeApp();
 exports.orderPlaced = functions.database.ref("Orders/{orderID}/")
     .onCreate((snapshot, context) => {
         const id = "ID";
-        console.log("There is a new order with ID: " + id);
+        console.log("There is a new order " + id);
 
         const payload = {
             notification: {
@@ -16,7 +16,22 @@ exports.orderPlaced = functions.database.ref("Orders/{orderID}/")
             },
         };
 
-        return admin.messaging().sendToTopic("NewOrder", payload);
+        return admin.messaging().sendToTopic("NewOrderRest", payload);
+    });
+
+// Function for notifying the admins that an order has been placed
+exports.orderPlacedBar = functions.database.ref("OrdersBar/{orderID}/")
+    .onCreate((snapshot, context) => {
+        const id = "ID";
+        console.log("There is a new order " + id);
+
+        const payload = {
+            notification: {
+                title: id,
+            },
+        };
+
+        return admin.messaging().sendToTopic("NewOrderBar", payload);
     });
 
 // Function for order updated
